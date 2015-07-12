@@ -3,10 +3,10 @@
  */
 define([
     'app',
-    appHelp.convertURL('ngCordova/js/controllers', true),
-    appHelp.convertURL('ngCordova/js/directives', true),
-    appHelp.convertURL('ngCordova/js/services', true),
-    appHelp.convertURL('ngCordova/js/filters', true)
+    appHelp.convertURL('ngCordova/js/controllers.js', true),
+    appHelp.convertURL('ngCordova/js/directives.js', true),
+    appHelp.convertURL('ngCordova/js/services.js', true),
+    appHelp.convertURL('ngCordova/js/filters.js', true)
 ], function (app) {
     app.register
         .state('app.ngCordova', {

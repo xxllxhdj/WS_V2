@@ -3,10 +3,10 @@
  */
 define([
     'app',
-    appHelp.convertURL('bootstrap/js/controllers', true),
-    appHelp.convertURL('bootstrap/js/directives', true),
-    appHelp.convertURL('bootstrap/js/services', true),
-    appHelp.convertURL('bootstrap/js/filters', true)
+    appHelp.convertURL('bootstrap/js/controllers.js', true),
+    appHelp.convertURL('bootstrap/js/directives.js', true),
+    appHelp.convertURL('bootstrap/js/services.js', true),
+    appHelp.convertURL('bootstrap/js/filters.js', true)
 ], function (app) {
     app.register
         .state('app.bootstrap', {
