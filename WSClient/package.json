@@ -1,0 +1,9 @@
+{
+  "name": "workstation",
+  "version": "2.0.1",
+  "description": "WorkStation: An Ionic project",
+  "cordovaPlugins": [],
+  "cordovaPlatforms": [
+    "android"
+  ]
+}

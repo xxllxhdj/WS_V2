@@ -1,10 +1,10 @@
 
 define([
     'app',
-    appHelp.convertURL('ionic/js/controllers', true),
-    appHelp.convertURL('ionic/js/directives', true),
-    appHelp.convertURL('ionic/js/services', true),
-    appHelp.convertURL('ionic/js/filters', true)
+    appHelp.convertURL('ionic/js/controllers.js', true),
+    appHelp.convertURL('ionic/js/directives.js', true),
+    appHelp.convertURL('ionic/js/services.js', true),
+    appHelp.convertURL('ionic/js/filters.js', true)
 ], function (app) {
     app.register
         .state('app.ionic', {

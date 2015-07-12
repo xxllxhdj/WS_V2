@@ -8,8 +8,9 @@
             childAppRootDir += 'FileStorage/apps/';
         }
         if (window.cordova && cordova.file) {
-            childAppRootDir = cordova.file.externalDataDirectory || cordova.file.documentsDirectory + 'apps/'
+            childAppRootDir = (cordova.file.externalDataDirectory || cordova.file.documentsDirectory) + 'apps/'
         }
+        //alert(childAppRootDir + srcURL);
         return childAppRootDir + srcURL;
     };
 })();
