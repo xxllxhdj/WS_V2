@@ -83,7 +83,9 @@ define(['ionic'], function () {
                 ];
 
                 require(dependencies, function () {
-                    loadCSS(jsDir + '/css/main.css');
+                    if (!checkCSSLoaded(appId)) {
+                        loadCSS(jsDir + '/css/main.css');
+                    }
                     defer.resolve();
                     //$rootScope.$apply();
                 }, function () {
@@ -94,9 +96,6 @@ define(['ionic'], function () {
             }
 
             function loadCSS (path) {
-                if (checkCSSLoaded(path)) {
-                    return;
-                }
                 var head = document.getElementsByTagName('head')[0];
                 var link = document.createElement('link');
                 link.href = path;
@@ -104,9 +103,11 @@ define(['ionic'], function () {
                 link.type = 'text/css';
                 head.appendChild(link);
             }
-            function checkCSSLoaded (path) {
+
+            function checkCSSLoaded (appId) {
                 var loadedCSS = csss(),
-                    len = loadedCSS.length;
+                    len = loadedCSS.length,
+                    path = appId + '/css/main.css';
                 for (var i = 0; i < len; i++) {
                     if (loadedCSS[i].href.indexOf(path) != -1) {
                         return true;
@@ -114,6 +115,7 @@ define(['ionic'], function () {
                 }
                 return false;
             }
+
             function csss() {
                 return document.getElementsByTagName('link');
             }
