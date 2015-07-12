@@ -1,0 +1,250 @@
+/**********************************************************Common******************************************************/
+/*
+.popup {
+    border-radius: 20px;
+}
+
+.popup-buttons .button {
+    border-radius: 10px;
+}
+
+.bar .button {
+    color: #35CCF9;
+}
+
+.icon {
+    color: #666666;
+}
+.placeholder-icon {
+    color: #b6b6b6;
+}
+
+.bar .title {
+    color: #333;
+}
+
+.bar-header {
+    border-bottom: 2px solid #e0e0e0;
+}
+
+.nav-bar {
+    top: 10px;
+}
+
+.main-view {
+    background: #F7F7F7;
+}
+*/
+/**********************************************************Common******************************************************/
+
+/********************************************************picks.html****************************************************/
+
+.picks-view .bar-subheader {
+    top: 54px;
+    height: 54px
+}
+.picks-view .has-subheader {
+    top: 108px;
+}
+
+.search {
+    border: none;
+    border-bottom: 1px solid #E2E2E2;
+    border-radius: 50px;
+    padding: 5px 10px 0 15px;
+}
+
+.ship-line {
+    border-color: #e9e9e9;
+    background-color: #fff;
+    color: #444;
+    position: relative;
+    z-index: 1;
+    display: block;
+    margin: 30px 10px 30px 10px;
+    padding: 15px;
+    border-width: 1px;
+    border-style: solid;
+    font-size: 16px;
+    border-radius:10px;
+    background-clip: padding-box;
+}
+.ship-line a {
+    text-decoration: none;
+    color: #666666;
+}
+.ship-line:first-child {
+    margin: 10px 10px 30px 10px;
+}
+.ship-line:last-child {
+    margin: 30px 10px 10px 10px;
+}
+.ship-line:last-child .line {
+    opacity: 0;
+}
+
+.line {
+    position: absolute;
+    top: 155px;
+    left: 50%;
+    z-index: 9999;
+}
+.round {
+    top: 6px;
+    left: 4%;
+    width: 10px;
+    height: 10px;
+    border: 1px solid #eee;
+    border-radius: 50%;
+    position: relative;
+    background: #eee;
+    background-clip: padding-box;
+}
+.vertical-line {
+    text-align: center;
+    height: 10px;
+    font-size: 5px;
+    color: #eee;
+}
+
+/********************************************************picks.html****************************************************/
+
+/*********************************************************pick.html****************************************************/
+
+.pick-view .bar-subheader {
+    height: 98px;
+    border-bottom: 2px solid #e0e0e0;
+    padding: 5px 0;
+    top: 54px;
+}
+.pick-view .has-subheader {
+    top: 152px;
+}
+.pick-view .scroll-refresher {
+    top: -70px;
+}
+.pick-view .bar-subfooter {
+    padding: 3px 5px 8px 5px;
+}
+.subheader-item {
+    margin: 5px 0;
+}
+
+.customer {
+    border-top: 2px solid #e2e2e2;
+    padding: 12px 5px;
+    color: #666;
+}
+
+.pick-button-bar {
+    width: 50%;
+}
+.pick-button-bar .button {
+    left: 50% !important;
+    height: 34px;
+    border-color: #35ccf9 !important;
+    background-color: #fff !important;
+    color: #333 !important;
+    border-width: 2px !important;
+    background-clip: padding-box;
+}
+.pick-button-bar .button-calm {
+    background-color: #35ccf9 !important;
+    color: #fff !important;
+}
+.pick-button-bar .button.activated,
+.pick-button-bar .button.button-calm.activated {
+    border-color: #35ccf9;
+    background-color: #35ccf9;
+    box-shadow: none;
+}
+.pick-button-bar .button:first-child {
+    border-radius: 50px 0px 0px 50px;
+}
+.pick-button-bar .button:last-child {
+    border-radius: 0px 50px 50px 0px;
+}
+
+.barcode-list {
+    padding: 10px 5px;
+    background-color:#f7f7f7;
+    position:relative;
+    z-index: 10;
+    top: 153px;
+    bottom: 88px;
+    position: absolute;
+    overflow: hidden;
+    width: 100%;
+}
+.barcode {
+    border-radius: 10px;
+    position: relative;
+    z-index: 2;
+    background: #fff;
+    height: 50px;
+    margin: 20px;
+    padding: 15px;
+    vertical-align: baseline;
+    border: 1px solid #e9e9e9;
+    color: #666666;
+    background-clip: padding-box;
+}
+.barcode-error {
+    color: #ff716b;
+    background: #fef9f0;
+    border: 1px solid #e9e9e9;
+    background-clip: padding-box;
+}
+.barcode-close {
+    border-radius:50%;
+    height: 26px;
+    width: 26px;
+    position: absolute;
+    top: -13px;
+    right: -13px;
+    z-index: 1000;
+    background-color: #fff;
+    color: #43cee6;
+    text-align: center;
+    vertical-align: middle;
+    border: 1px solid #e9e9e9;
+    background-clip: padding-box;
+    font-size: 20px;
+    padding: 2px;
+}
+
+.pick-footer-bar .button {
+    border-color: #35ccf9 !important;
+    border-radius:50px;
+    color: #fff;
+    margin: 0;
+}
+.pick-footer-bar .button-calm {
+    background-color: #35ccf9 !important;
+    background-clip: padding-box;
+}
+
+.col-left {
+    text-align: left;
+}
+.col-right {
+    text-align: right;
+}
+
+.pick-detail li {
+    background-clip: padding-box;
+    border-color: #e9e9e9;
+    color: #666 !important;
+    margin: 20px 10px 20px 10px;
+}
+
+.bar-code {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-bottom: none;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border-top: 2px solid #e0e0e0;
+}
+
+/*********************************************************pick.html****************************************************/

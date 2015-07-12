@@ -1,0 +1,222 @@
+/**********************************************************Common******************************************************/
+/*
+.bar .button {
+    color: #35CCF9;
+}
+
+.icon {
+    color: #666666;
+}
+
+.bar .title {
+    color: #333;
+}
+
+.bar-header {
+    border-bottom: 2px solid #e0e0e0;
+}
+
+.nav-bar {
+    top: 10px;
+}
+
+.bar-subheader {
+    top: 54px;
+    border-bottom: 2px solid #e0e0e0;
+}
+.has-header {
+    top: 54px;
+}
+*/
+/**********************************************************Common******************************************************/
+
+/*********************************************************home.html****************************************************/
+
+.main-view {
+    background: #F7F7F7;
+}
+
+.has-top-content {
+    top: 205px;
+}
+
+.top-content {
+    text-align: center;
+    color:#F2F2F2;
+    background-color: white;
+    height: 150px;
+}
+
+.top-item {
+    float: left;
+    width: 90px;
+    position: relative;
+    margin: 10px 0;
+}
+
+.link-style {
+    font-size: larger;
+    color:#666666;
+    text-decoration: none;
+}
+.bob-item {
+    min-width: 25px;
+    font-size: 14px;
+    background-color: #ff716b;
+    color: #fff;
+    border-radius: 999px;
+    background-clip: padding-box;
+    border: 2px solid #FFFFFF;
+    position: absolute;
+    top: 2px;
+    margin-left: -20px;
+    padding: 0 4px;
+}
+
+.msg-list {
+    margin: 15px 20px;
+}
+.msg-list .item {
+    border-color: #e9e9e9;
+}
+.msg-list .item-complex .item-content {
+    padding: 10px 10px 10px 15px;
+    color: #666;
+}
+.msg-list .item-icon-right .icon {
+    right: 5px;
+}
+
+.badge-item {
+    min-width: 10px;
+    font-size: 14px;
+    background-color: #ff716b;
+    color: #fff;
+    border-radius: 10px;
+    position: absolute;
+    top: 9px;
+    right: 40px;
+    line-height: 16px;
+    padding: 3px 8px;
+    vertical-align: baseline;
+    text-align: center;
+    white-space: nowrap;
+    font-weight: bold;
+}
+.badge-item:empty {
+    background-color: transparent;
+}
+
+/*********************************************************home.html****************************************************/
+
+/*******************************************************message.html***************************************************/
+
+.flow-container{
+    padding-left:5px;
+}
+
+.flow-content{
+    width:100%;
+    border-left:1px solid #EBEBEB;
+    float:left;
+}
+
+.flow-li{
+    width: 100%;
+    padding: 0 0 0 22px;
+    position: relative;
+    margin: 15px 0;
+}
+.flow-li a{
+    border-radius: 10px;
+    border-color: #E9E9E9;
+    background-clip: padding-box;
+}
+.li-triangle-detail{
+    width:20px;
+    height:20px;
+    border:1px solid #ddd;
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    position: absolute;
+    left: 12px;
+    background-color: #fff;
+    z-index: 999;
+    border-top:0;
+    border-right:0;
+    border-radius: 2px;
+    top: 50%;
+    margin-top: -10px;
+}
+.li-circle{
+    position: absolute;
+    top: 50%;
+    left: -6px;
+    width: 10px;
+    height: 10px;
+    background-color: #FFA101;
+    border-radius: 50%;
+    margin-top: -5px;
+}
+.li-hide-header{
+    position: absolute;
+    top: 50%;
+    left: -5px;
+    width: 10px;
+    height: 58px;
+    background-color: #f7f7f7;
+    margin-top: -17px;
+}
+.li-hide-footer{
+    position: absolute;
+    top: 50%;
+    left: -5px;
+    width: 10px;
+    height: 58px;
+    background-color: #f7f7f7;
+    margin-top: -50px;
+}
+
+.message-item {
+    background: #F7F7F7;
+    border-width: 0;
+}
+
+.timeright{
+    font-size: 10px;
+    float: right;
+    color: #999999;
+    right: 5px;
+    top:5px;
+}
+.senderName{
+    font-size: 10px;
+    color: #999999;
+    right: 5px;
+    top:5px;
+}
+
+/*******************************************************message.html***************************************************/
+
+/*******************************************************details.html***************************************************/
+
+.detail-title {
+    background-color: #F7f7f7;
+    padding: 5px 10px;
+}
+.content-header {
+    color: #35CCF9;
+}
+.content-detail {
+    color: #666;
+}
+
+.detail-content {
+    padding: 16px;
+    top: 98px;
+}
+.detail-content p {
+    white-space: pre;
+}
+
+/*******************************************************details.html***************************************************/

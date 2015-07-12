@@ -1,0 +1,20 @@
+<ion-view view-title="inAppBrowser">
+    <ion-header-bar class="bar-subheader search-header">
+        <div class="item-button-right">
+            <label class="item item-input">
+                <input type="text" placeholder="输入网址" ng-model="url">
+            </label>
+            <button class="button button-clear" ng-click="openUrl()">
+                <i class="icon ion-search positive"></i>
+            </button>
+        </div>
+    </ion-header-bar>
+    <ion-content class="search-content">
+        <div class="card">
+            <div class="item item-divider">Target配置</div>
+            <ion-radio ng-model="target" ng-value="'_blank'">_blank</ion-radio>
+            <ion-radio ng-model="target" ng-value="'_self'">_self</ion-radio>
+            <ion-radio ng-model="target" ng-value="'_system'">_system</ion-radio>
+        </div>
+    </ion-content>
+</ion-view>

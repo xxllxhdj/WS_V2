@@ -1,0 +1,11 @@
+<ion-view view-title="条码">
+    <ion-content scroll="false" padding="true" class="has-tabs">
+        <button ng-click="scan()" class="button button-block button-primary test">开始扫描</button>
+        <div class="card">
+            <div class="item item-divider">扫描结果</div>
+            <div class="item">Text: {{scanResult.text}}</div>
+            <div class="item">Format: {{scanResult.format}}</div>
+            <div class="item">Cancelled: {{scanResult.cancelled}}</div>
+        </div>
+    </ion-content>
+</ion-view>

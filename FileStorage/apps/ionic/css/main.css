@@ -1,0 +1,90 @@
+
+.expander {
+    position: relative;
+    padding: 0;
+}
+.expander .body {
+    padding: 5px;
+}
+.expander .footer {
+    background-color: #cdcdcd;
+}
+.footer .button {
+    min-height: 10px;
+    height: 20px;
+    padding: 0;
+    margin: 0;
+}
+.footer .button .icon:before {
+    line-height: 20px;
+}
+
+.pref-num {
+    font-size: x-large;
+}
+.pref-num .ion-ios-arrow-thin-up:before,
+.pref-num .ion-ios-minus-empty:before {
+    color: red;
+}
+.pref-num .ion-ios-arrow-thin-down:before {
+    color: green;
+}
+.pref-num > .icon:before {
+    font-weight: 900;
+    font-size: x-large;
+    width: 18px;
+}
+.pref-num span i {
+    margin: 0 0 0 6px;
+}
+
+.user-info {
+    margin-right: 0;
+    margin-left: 0;
+}
+.user-photo img {
+    width: 80px;
+    height: 80px;
+}
+.user-photo h5 {
+    text-align: center;
+    margin-bottom: 0;
+}
+.user-tips {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    text-align: right;
+}
+.user-tips .num-style span {
+    color: red;
+    border-bottom: 2px solid red;
+}
+.pref-list .item {
+    padding: 10px 5px 10px 0;
+}
+.pref-list .item > img {
+    width: 40px;
+    height: 40px;
+}
+.pref-list .item > span {
+    vertical-align: middle;
+}
+.pref-list .item > .pref-tips {
+    position: absolute;
+    top: 13px;
+    right: 10px;
+    text-align: right;
+    margin-bottom: 0;
+}
+.pref-rank {
+    min-width: 50px;
+    text-align: center;
+    font-size: x-large;
+    vertical-align: middle;
+    margin-bottom: 0;
+}
+.pref-rank img {
+    width: 20px;
+    height: 20px;
+}

@@ -1,0 +1,25 @@
+<ion-view title="File">
+    <ion-content>
+        <div class="card">
+            <div class="item item-divider-ios">
+                Set Config
+            </div>
+            <div class="item">
+                <label class="item item-input">
+                    <input type="text" placeholder="text" ng-model="inputs.configValue">
+                </label>
+            </div>
+            <div class="item item-input-inset">
+                <label class="item-input-wrapper">
+                    <input type="text" placeholder="Write File Name" ng-model="inputs.configFile">
+                </label>
+                <button class="button button-small button-positive button-outline" ng-click="setConfig()">
+                    Set
+                </button>
+            </div>
+            <div class="item" ng-if="inputs.configResult">
+                {{inputs.configResult}}
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

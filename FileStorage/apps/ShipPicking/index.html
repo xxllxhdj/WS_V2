@@ -1,0 +1,46 @@
+<ion-view title="拣货任务" class="picks-view">
+    <ion-header-bar class="bar-subheader">
+        <div>
+            <label class="item item-input search">
+                <i class="icon ion-search placeholder-icon"></i>
+                <input type="text" placeholder="请输入单据号或客户名称" ng-model="pickData.query">
+            </label>
+        </div>
+    </ion-header-bar>
+    <ion-content class="main-view has-tabs">
+        <ion-refresher on-refresh="doRefresh()"
+                       pulling-text="下拉刷新..."
+                       refreshing-text="请等待!"
+                       refreshing-icon="ion-loading-c">
+        </ion-refresher>
+        <ul class="list">
+            <li class="item-icon-right ship-line" ng-repeat="pick in pickData.picks | PicksQuery:pickData.query | limitTo:pickData.currentNum track by $index">
+                <a href="#/app/picks/{{pick.DocID}}">
+                    <div class="row">
+                        <div class="col">单号：</div>
+                        <div class="col">{{pick.DocNO}}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col">来源单据：</div>
+                        <div class="col">{{pick.DocLineSrcNo}}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col">客户名称：</div>
+                        <div class="col">{{pick.Customer_Name}}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col">业务员：</div>
+                        <div class="col">{{pick.BusinessPerson_Name}}</div>
+                    </div>
+                    <i class="icon ion-ios7-arrow-right"></i>
+
+                    <div class="line">
+                        <div class="vertical-line">|</div>
+                        <div class="round"></div>
+                        <div class="vertical-line">|</div>
+                    </div>
+                </a>
+            </li>
+        </ul>
+    </ion-content>
+</ion-view>

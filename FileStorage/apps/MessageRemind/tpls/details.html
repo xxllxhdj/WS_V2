@@ -1,0 +1,17 @@
+<ion-view title="{{name}}">
+    <ion-nav-buttons side="right">
+        <button class="button button-clear" ng-click="markMsgToRead()">
+            <i class="icon ion-ios-compose"></i> 标记已读
+        </button>
+    </ion-nav-buttons>
+    <div class="bar bar-subheader detail-title">
+        <h6>
+            发件人：{{msgDetails.SenderName}}
+            <p class="timeright">{{msgDetails.SendTime | date:"yyyy-MM-dd"}}</p>
+        </h6>
+    </div>
+    <ion-content class="has-subheader detail-content">
+        <p class="content-header">{{msgDetails.Title}}</p>
+        <p class="content-detail">{{msgDetails.Content}}</p>
+    </ion-content>
+</ion-view>

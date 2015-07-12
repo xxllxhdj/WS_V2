@@ -1,0 +1,30 @@
+<ion-view title="{{name}}({{totalcount}})">
+    <ion-content class="main-view">
+        <ion-item class="item-accordion message-item">
+            <div class="flow-container">
+                <div class="flow-content">
+                    <div class="flow-li">
+                        <div class="li-hide-header"></div>
+                    </div>
+                    <div class="flow-li"
+                         ng-repeat="message in messageData | limitTo:numberOfItemsToDisplay |orderBy:'message.SendTime':true">
+                        <div class="li-triangle-detail"></div>
+                        <div class="li-circle"></div>
+                        <a class="item item-icon-right" href="#/app/messages/{{msgType}}/{{message.ID}}">
+                            <span class="timeright">{{message.SendTime | date:"yyyy-MM-dd"}}</span>
+                            <span class="senderName">{{message.SenderName}}</span>
+
+                            <p class="title">{{message.Title | limitTo:20}}...</p>
+                            <i class="icon ion-ios7-arrow-right color"></i>
+                        </a>
+                    </div>
+                    <div class="flow-li">
+                        <div class="li-hide-footer"></div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </ion-item>
+        <ion-infinite-scroll on-infinite="loadMore()" ng-if="!noMoreItemsAvailable" icon="ion-loading-c" distance="1%"></ion-infinite-scroll>
+    </ion-content>
+</ion-view>

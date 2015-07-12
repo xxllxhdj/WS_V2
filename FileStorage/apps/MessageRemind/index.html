@@ -1,0 +1,20 @@
+<ion-view title="消息通知">
+    <ion-header-bar class="bar-subheader top-content row">
+        <div class="top-item col" ng-repeat="msg in headerUnReadMessages">
+            <a class="link-style" href="#/app/messages/{{msg.msgType}}">
+                <img ng-src="img/{{msg.img}}" width="80" height="80">
+                <span class="bob-item">{{msg.msgNum}}</span>
+                <p>{{msg.name}}</p>
+            </a>
+        </div>
+    </ion-header-bar>
+    <ion-content scroll="false" class="main-view has-top-content">
+        <div class="list msg-list">
+            <ion-item ng-repeat="msg in contentUnReadMessages" class="item-icon-right" href="#/app/messages/{{msg.msgType}}">
+                {{msg.name}}
+                <span class="badge-item">{{msg.msgNum}}</span>
+                <i class="icon ion-ios-arrow-right color"></i>
+            </ion-item>
+        </div>
+    </ion-content>
+</ion-view>

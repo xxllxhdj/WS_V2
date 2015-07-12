@@ -1,0 +1,9 @@
+<ion-view view-title="设置">
+    <ion-content>
+        <ion-toggle toggle-class="toggle-stable" ng-repeat="demo in data.demos"
+                    ng-model="demo.enabled" ng-change="setDemoEnabled(demo.id, demo.enabled)" class="option-toggle">
+            <img ng-src="{{demo.logo}}" class="demo-logo">
+            {{demo.name}}
+        </ion-toggle>
+    </ion-content>
+</ion-view>

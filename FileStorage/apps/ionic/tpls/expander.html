@@ -1,0 +1,33 @@
+<ion-view title="expander">
+    <ion-content scroll="false" class="has-tabs">
+        <item-expander expanded="data.expanded">
+            <div class="row user-info">
+                <div class="user-photo">
+                    <img ng-src="{{data.current.photo}}">
+                    <h5>{{data.current.name}}</h5>
+                </div>
+                <div class="user-tips">
+                    <h4>业绩排名 {{data.current.rank}}</h4>
+                    <performance-num num="data.current.num" trend="data.current.trend" class="num-style">
+                    </performance-num>
+                    <h5>目前，你击败了{{data.current.fight}}%的同事</h5>
+                </div>
+            </div>
+        </item-expander>
+        <ion-scroll item-expanded="data.expanded">
+            <ion-list class="pref-list">
+                <ion-item ng-repeat="pref in data.performances" ng-click="resetPref(pref.id)">
+                    <label ng-switch="$index" class="pref-rank">
+                        <img ng-switch-when="0" src="img/photo.png">
+                        <img ng-switch-when="1" src="img/photo.png">
+                        <img ng-switch-when="2" src="img/photo.png">
+                        <span ng-switch-default>{{$index + 1}}</span>
+                    </label>
+                    <img ng-src="{{pref.photo}}">
+                    <span>{{pref.name}}</span>
+                    <performance-num num="pref.num" trend="pref.trend" class="pref-tips"></performance-num>
+                </ion-item>
+            </ion-list>
+        </ion-scroll>
+    </ion-content>
+</ion-view>

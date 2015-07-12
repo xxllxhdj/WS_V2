@@ -1,0 +1,64 @@
+<ion-view title="{{shipData.shipLines[0].DocNO}}" class="pick-view">
+    <ion-header-bar class="bar-subheader">
+        <div class="button-bar pick-button-bar" style="width:50%;">
+            <button class="button" ng-class="{'button-calm':shipData.barCode}" ng-click="activeBarCode()" style="left:50%; height:34px; border-radius:50px 0px 0px 50px;border-color: #35ccf9;">条码明细</button>
+            <button class="button" ng-class="{'button-calm':shipData.pickDetail}" ng-click="activePickDetail()" style="left:50%; height:34px; border-radius:0px 50px 50px 0px;border-color: #35ccf9;">单据明细</button>
+        </div>
+        <div class="item item-button-right bar-code" ng-show="shipData.barCode">
+            <label class="item item-input search">
+                <input type="text" placeholder="请扫描条码" get-focus="{{shipData.barCode}}" ng-model="shipData.inputCode" ng-change="refreshBarcode()">
+            </label>
+            <button class="button button-clear" ng-click="scanCode()">
+                <i class="icon ion-ios-barcode"></i>
+            </button>
+        </div>
+        <div class="row subheader-item customer" ng-show="shipData.pickDetail">
+            <div class="col col-left">客户：{{shipData.shipLines[0].Customer_Name}}</div>
+            <div class="col col-right">{{shipData.shipLines[0].BusinessDate}}</div>
+        </div>
+    </ion-header-bar>
+    <ion-scroll ng-if="shipData.barCode" class="barcode-list">
+            <ul class="list">
+                <li class="item-button-right barcode" ng-repeat="barCode in shipData.barCodes track by $index" ng-class="{'barcode-error':barCode.error}">
+                    {{barCode.code}}
+                    <div ng-click="deleteBarcodeByIndex($index)" class="barcode-close"><i class="ion-close"></i></div>
+                </li>
+            </ul>
+    </ion-scroll>
+    <ion-content class="main-view">
+        <ion-refresher on-refresh="doRefresh()"
+                       pulling-text="下拉刷新..."
+                       refreshing-text="请等待!"
+                       refreshing-icon="ion-loading-c"
+                       ng-disabled="shipData.barCode">
+        </ion-refresher>
+        <ul ng-if="shipData.pickDetail" class="list pick-detail">
+            <li class="item" ng-repeat="line in shipData.shipLines | limitTo:shipData.currentNum track by $index" style="border-radius:10px;">
+                <div class="row">
+                    <div class="col">物料名称：</div>
+                    <div class="col">{{line.ItemMaster_Name}}</div>
+                </div>
+                <div class="row">
+                    <div class="col">条码：</div>
+                    <div class="col">{{line.barCode}}</div>
+                </div>
+                <div class="row">
+                    <div class="col">批号：</div>
+                    <div class="col">{{line.LotCode}}</div>
+                </div>
+                <div class="row">
+                    <div class="col">仓库：</div>
+                    <div class="col">{{line.Wh_Name}}</div>
+                </div>
+                <div class="row">
+                    <div class="col">本次出货数量：</div>
+                    <div class="col">{{line.ShipQtyInvAmount}}&nbsp;&nbsp;&nbsp;{{line.UOM_Code}}</div>
+                </div>
+            </li>
+        </ul>
+    </ion-content>
+    <ion-footer-bar class="bar-subfooter pick-footer-bar">
+        <button ng-if="shipData.barCode" class="button button-calm button-radius button-full" ng-click="checkInline()" ng-disabled="shipData.barCodes.length==0">在线检查</button>
+        <button ng-if="shipData.pickDetail" class="button button-calm button-radius button-full" ng-click="confirmShip()" ng-disabled="shipData.confirmDisabled">出货确认</button>
+    </ion-footer-bar>
+</ion-view>
