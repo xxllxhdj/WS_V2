@@ -8,17 +8,17 @@ define(['app'], function (app) {
             name: MSGCONSTANTS.CSMessage,
             msgType: 'CSMessage',
             msgNum: '',
-            img: '../apps/MessageRemind/image/MyMessage.png'
+            img: appHelp.convertURL('MessageRemind/image/MyMessage.png')
         }, {
             name: MSGCONSTANTS.WorkFlowMessage,
             msgType: 'WorkFlowMessage',
             msgNum: '',
-            img: '../apps/MessageRemind/image/ApprovalTask.png'
+            img: appHelp.convertURL('MessageRemind/image/ApprovalTask.png')
         }, {
             name: MSGCONSTANTS.SystemMessage,
             msgType: 'SystemMessage',
             msgNum: '',
-            img: '../apps/MessageRemind/image/SystemMessage.png'
+            img: appHelp.convertURL('MessageRemind/image/SystemMessage.png')
         }];
         $scope.contentUnReadMessages = [{
             name: MSGCONSTANTS.CSTaskRemind,

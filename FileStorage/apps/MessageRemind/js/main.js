@@ -3,17 +3,17 @@
  */
 define([
     'app',
-    'apps/MessageRemind/js/controllers',
-    'apps/MessageRemind/js/directives',
-    'apps/MessageRemind/js/services',
-    'apps/MessageRemind/js/filters'
+    appHelp.convertURL('MessageRemind/js/controllers.js', true),
+    appHelp.convertURL('MessageRemind/js/directives.js', true),
+    appHelp.convertURL('MessageRemind/js/services.js', true),
+    appHelp.convertURL('MessageRemind/js/filters.js', true)
 ], function (app) {
     app.register
         .state('app.MessageRemind', {
             url: "/MessageRemind",
             views: {
                 'menuContent': {
-                    templateUrl: "apps/MessageRemind/index.html",
+                    templateUrl: appHelp.convertURL("MessageRemind/index.html"),
                     controller: 'MessagesCtrl',
                     resolve: {
                         'loadMsgs': ['MessageService', function (MessageService) {
@@ -27,7 +27,7 @@ define([
             url: "/messages/:msgType",
             views: {
                 'menuContent': {
-                    templateUrl: "apps/MessageRemind/tpls/message.html",
+                    templateUrl: appHelp.convertURL("MessageRemind/tpls/message.html"),
                     controller: 'MessageCtrl',
                     resolve: {
                         'loadAcvtiveMsgs': ['$stateParams', 'MessageService', function ($stateParams, MessageService) {
@@ -41,7 +41,7 @@ define([
             url: '/messages/:msgType/:msgId',
             views: {
                 'menuContent': {
-                    templateUrl: "apps/MessageRemind/tpls/details.html",
+                    templateUrl: appHelp.convertURL("MessageRemind/tpls/details.html"),
                     controller: 'DetailsCtrl'
                 }
             }

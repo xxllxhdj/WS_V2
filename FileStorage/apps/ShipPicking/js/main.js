@@ -1,17 +1,17 @@
 
 define([
     'app',
-    'apps/ShipPicking/js/controllers',
-    'apps/ShipPicking/js/directives',
-    'apps/ShipPicking/js/services',
-    'apps/ShipPicking/js/filters'
+    appHelp.convertURL('ShipPicking/js/controllers.js', true),
+    appHelp.convertURL('ShipPicking/js/directives.js', true),
+    appHelp.convertURL('ShipPicking/js/services.js', true),
+    appHelp.convertURL('ShipPicking/js/filters.js', true)
 ], function (app) {
     app.register
         .state('app.ShipPicking', {
             url: '/ShipPicking',
             views: {
                 'menuContent': {
-                    templateUrl: "apps/ShipPicking/index.html",
+                    templateUrl: appHelp.convertURL("ShipPicking/index.html"),
                     controller: 'PicksCtrl',
                     resolve: {
                         'loadPicks': ['ShipPickService', function (ShipPickService) {
@@ -25,7 +25,7 @@ define([
             url: '/picks/:docId',
             views: {
                 'menuContent': {
-                    templateUrl: "apps/ShipPicking/tpls/pick.html",
+                    templateUrl: appHelp.convertURL("ShipPicking/tpls/pick.html"),
                     controller: 'ShipLinesCtrl',
                     resolve: {
                         'loadPicks': ['$stateParams', 'ShipPickService', function ($stateParams, ShipPickService) {
