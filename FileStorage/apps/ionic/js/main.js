@@ -32,5 +32,13 @@ define([
                     controller: 'ScrollCtrl'
                 }
             }
+        })
+        .state('app.slideBox', {
+            url: '/slideBox',
+            views: {
+                'menuContent': {
+                    templateUrl: appHelp.convertURL('ionic/tpls/slideBox.html')
+                }
+            }
         });
 });
