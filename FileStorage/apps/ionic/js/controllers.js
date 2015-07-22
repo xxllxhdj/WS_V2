@@ -3,16 +3,32 @@
  */
 define(['app', 'ngCordova'], function (app) {
 
-    app.register.controller('ExpandCtrl', ['$scope', 'performanceService', function ($scope, performanceService) {
+    app.register.controller('ExpandCtrl', ['$scope', '$timeout', 'performanceService', function ($scope, $timeout, performanceService) {
         $scope.data = {
             expanded: true,
             current: performanceService.getUserPerf(),
-            performances: performanceService.getAllPerfs()
+            performances: performanceService.getAllPerfs(),
+            scrollHeight: ''
         };
 
         $scope.resetPref = function (userId) {
             $scope.data.current = performanceService.getUserPerf(userId);
         };
+
+        $scope.$watch('data.expanded', function (value) {
+            var delay = value ? 350 : 0;
+            $timeout(function () {
+                update(value);
+            }, delay);
+        });
+
+        function update (itemExpanded) {
+            var expandHeight = itemExpanded ? 145 : 20,
+                navBarHeight = 44,
+                tabsHeight = 48,
+                docHeight = document.body.scrollHeight;
+            $scope.data.scrollHeight = {height: + (docHeight - expandHeight - navBarHeight - tabsHeight) + 'px'};
+        }
     }]);
 
     app.register.controller('ScrollCtrl', ['$scope', function ($scope) {

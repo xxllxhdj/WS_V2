@@ -14,7 +14,8 @@
                 </div>
             </div>
         </item-expander>
-        <ion-scroll item-expanded="data.expanded">
+        <!--ion-scroll item-expanded="data.expanded"-->
+        <ion-scroll ng-style="data.scrollHeight">
             <ion-list class="pref-list">
                 <ion-item ng-repeat="pref in data.performances" ng-click="resetPref(pref.id)">
                     <label ng-switch="$index" class="pref-rank">
