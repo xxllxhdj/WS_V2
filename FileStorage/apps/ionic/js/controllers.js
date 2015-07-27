@@ -35,6 +35,18 @@ define(['app', 'ngCordova'], function (app) {
         $scope.data = {
             scrollImg : appHelp.convertURL('ionic/img/Desert.gif')
         };
+
+        $scope.rate = 7;
+        $scope.max = 10;
+        $scope.isReadonly = false;
+        $scope.hoveringOver = function(value) {
+            $scope.overStar = value;
+            $scope.percent = 100 * (value / $scope.max);
+        };
+
+        $scope.onDropDownMenu = function () {
+
+        };
     }]);
 
 });

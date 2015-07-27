@@ -1,5 +1,18 @@
 <ion-view title="scroll">
     <ion-content class="has-tabs">
+        <div class="btn-group" dropdown>
+            <button id="single-button" type="button" class="btn btn-primary button-full" dropdown-toggle ng-disabled="disabled">
+                Button dropdown <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="single-button">
+                <li role="menuitem" ng-click="onDropDownMenu()"><a href="#">Action</a></li>
+                <li role="menuitem"><a href="#">Another action</a></li>
+                <li role="menuitem"><a href="#">Something else here</a></li>
+                <li class="divider"></li>
+                <li role="menuitem"><a href="#">Separated link</a></li>
+            </ul>
+        </div>
+        <rating ng-model="rate" max="max" readonly="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
         <ion-scroll zooming="true" direction="xy" style="width: 400px; height: 500px">
             <img style="width: 1024px; height: 768px;" ng-src="{{data.scrollImg}}">
         </ion-scroll>
