@@ -33,6 +33,12 @@ define([
                         navigator.splashscreen.hide();
                     }, APPCONSTANTS.SPLASH_SCREEN_EXTRA_DELAY);
                 }
+                if (window.cordova && window.cordova.plugins.notification.badge) {
+                    cordova.plugins.notification.badge.configure({
+                        title: '%d条新消息'
+                    });
+                    cordova.plugins.notification.badge.set(10);
+                }
             });
 
             $ionicPlatform.registerBackButtonAction(

@@ -2,31 +2,16 @@
 
 //this hook installs all your plugins
 
-// add your plugins to this list--either the identifier, the filesystem location or the URL
-var pluginlist = [
-    //'cordova-plugin-splashscreen',
-    'org.apache.cordova.splashscreen',
-    'phonegap-plugin-barcodescanner',
-    'cordova-plugin-whitelist',
-    'nl.x-services.plugins.toast',
-    'cordova-plugin-inappbrowser',
-    'cordova-plugin-file'
-    //'org.apache.cordova.file'
-];
-
-var localpluginlist = [
-    "cn.plugins.extrainfo"
-];
-
-// no need to configure below
-
-var fs = require('fs');
 var path = require('path');
-var sys = require('sys')
 var exec = require('child_process').exec;
 
+var packageJSON = require('../../package.json');
+var pluginlist = packageJSON.cordovaPlugins || [];
+
+var localpluginlist = packageJSON.localPlugins || [];
+
 function puts(error, stdout, stderr) {
-    sys.puts(stdout)
+    console.log(stdout);
 }
 
 pluginlist.forEach(function(plug) {

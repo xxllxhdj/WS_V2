@@ -2,7 +2,18 @@
   "name": "workstation",
   "version": "2.0.1",
   "description": "WorkStation: An Ionic project",
-  "cordovaPlugins": [],
+  "cordovaPlugins": [
+    "org.apache.cordova.splashscreen",
+    "phonegap-plugin-barcodescanner",
+    "cordova-plugin-whitelist",
+    "nl.x-services.plugins.toast",
+    "cordova-plugin-inappbrowser",
+    "cordova-plugin-file",
+    "de.appplant.cordova.plugin.badge"
+  ],
+  "localPlugins": [
+    "cn.plugins.extrainfo"
+  ],
   "cordovaPlatforms": [
     "android"
   ]
