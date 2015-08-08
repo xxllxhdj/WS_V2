@@ -23,27 +23,16 @@ define(['app'], function (app) {
 
                 angular.extend(scope, {
                     cancel: angular.noop,
-                    destructiveButtonClicked: angular.noop,
+                    data: [],
+                    displayField: 'name',
+                    valueField: 'id',
                     buttonClicked: angular.noop,
                     $deregisterBackButton: angular.noop,
-                    buttons: [],
                     cancelOnStateChange: true
                 }, opts || {});
 
-                function textForIcon(text) {
-                    if (text && /icon/.test(text)) {
-                        scope.$actionSheetHasIcon = true;
-                    }
-                }
-
-                for (var x = 0; x < scope.buttons.length; x++) {
-                    textForIcon(scope.buttons[x].text);
-                }
-                textForIcon(scope.cancelText);
-                textForIcon(scope.destructiveText);
-
                 // Compile the template
-                var element = scope.element = $compile('<ion-combobox ng-class="cssClass" buttons="buttons"></ion-combobox>')(scope);
+                var element = scope.element = $compile('<ion-combobox ng-class="cssClass"></ion-combobox>')(scope);
 
                 // Grab the sheet element for animation
                 var sheetEl = angular.element(element[0].querySelector('.action-sheet-wrapper'));
@@ -99,32 +88,17 @@ define(['app'], function (app) {
                     IONIC_BACK_PRIORITY.actionSheet
                 );
 
-                // called when the user presses the cancel button
                 scope.cancel = function() {
-                    // after the animation is out, call the cancel callback
                     scope.removeSheet(opts.cancel);
                 };
 
                 scope.buttonClicked = function(index) {
-                    // Check if the button click event returned true, which means
-                    // we can close the action sheet
-                    if (opts.buttonClicked(index, opts.buttons[index]) === true) {
-                        scope.removeSheet();
-                    }
-                };
-
-                scope.destructiveButtonClicked = function() {
-                    // Check if the destructive button click event returned true, which means
-                    // we can close the action sheet
-                    if (opts.destructiveButtonClicked() === true) {
+                    if (opts.buttonClicked(index) === true) {
                         scope.removeSheet();
                     }
                 };
 
                 scope.showSheet();
-
-                // Expose the scope on $ionicActionSheet's return value for the sake
-                // of testing it.
                 scope.cancel.$scope = scope;
 
                 return scope.cancel;

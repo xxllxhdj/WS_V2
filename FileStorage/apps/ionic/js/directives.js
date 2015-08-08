@@ -34,6 +34,25 @@ define(['app'], function (app) {
             template:
             '<div class="action-sheet-backdrop">' +
                 '<div class="action-sheet-wrapper">' +
+                    '<div class="combobox-sheet">' +
+                        '<div class="combobox-body">' +
+                            '<div class="combobox-title">' +
+                                '<button class="button" ng-click="buttonClicked(0)">取消</button>' +
+                                '<button class="button" ng-click="buttonClicked(1)">确认</button>' +
+                            '</div>' +
+                            '<ion-scroll class="combobox-content" scrollbar-y="false">' +
+                                '<ion-list>' +
+                                    '<ion-item ng-repeat="t in data">{{t[displayField]}}</ion-item>' +
+                                '</ion-list>' +
+                            '</ion-scroll>' +
+                        '</div>' +
+                    '</div>' +
+                '</div>' +
+            '</div>'
+            /*
+            template:
+            '<div class="action-sheet-backdrop">' +
+                '<div class="action-sheet-wrapper">' +
                     '<div class="action-sheet" ng-class="{\'action-sheet-has-icons\': $actionSheetHasIcon}">' +
                         '<div class="action-sheet-group action-sheet-options">' +
                             '<div class="action-sheet-title" ng-if="titleText" ng-bind-html="titleText"></div>' +
@@ -46,6 +65,7 @@ define(['app'], function (app) {
                     '</div>' +
                 '</div>' +
             '</div>'
+            */
         };
     }]);
 

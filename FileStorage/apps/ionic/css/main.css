@@ -1,4 +1,40 @@
 
+/*****************************************************Combobox*********************************************************/
+
+.combobox-sheet {
+    margin-left: 8px;
+    margin-right: 8px;
+    width: auto;
+    z-index: 11;
+    overflow: hidden;
+}
+.combobox-body {
+    background: #f1f2f3;
+    margin-bottom: 8px;
+    border-radius: 4px;
+    overflow: hidden;
+}
+.combobox-title .button {
+    border: none;
+    background-color: transparent;
+    color: #007aff;
+    font-size: 21px;
+}
+.combobox-title .button:last-child {
+    float: right;
+}
+.combobox-content {
+    width: 100%;
+    height: 108px;
+}
+.combobox-content .item {
+    text-align: center;
+    padding: 6px;
+    background: transparent;
+}
+
+/*****************************************************Combobox*********************************************************/
+
 .expander {
     position: relative;
     padding: 0;
