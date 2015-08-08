@@ -49,4 +49,20 @@ define(['app', 'ngCordova'], function (app) {
         };
     }]);
 
+    app.register.controller('ComboCtrl', ['$scope', 'ionicCombobox', function ($scope, ionicCombobox) {
+        $scope.showActionSheet = function () {
+            ionicCombobox.show({
+                buttons:[
+                    {text:'share'},
+                    {text:'move'}
+                ],
+                titleText:'ActionSheet',
+                cancelText:'cancel',
+                buttonClicked:function () {
+                    return true;
+                }
+            });
+        };
+    }]);
+
 });

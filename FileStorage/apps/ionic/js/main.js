@@ -40,5 +40,14 @@ define([
                     templateUrl: appHelp.convertURL('ionic/tpls/slideBox.html')
                 }
             }
+        })
+        .state('app.combobox', {
+            url: '/combobox',
+            views: {
+                'menuContent': {
+                    templateUrl: appHelp.convertURL('ionic/tpls/combobox.html'),
+                    controller: 'ComboCtrl'
+                }
+            }
         });
 });
