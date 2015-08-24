@@ -2,7 +2,7 @@
  * Created by xuxle on 2015/6/19.
  */
 define(['app'], function (app) {
-    app.register.directive('scrollSelector', ['$ionicBind', function($ionicBind) {
+    app.register.directive('scrollSelector', ['$ionicBind', '$timeout', function($ionicBind, $timeout) {
         return {
             restrict: 'E',
             scope: true,
@@ -13,7 +13,7 @@ define(['app'], function (app) {
                     '</div>' +
                     '<div class="select-box select-box-bottom">' +
                     '</div>' +
-                    '<ion-scroll class="scroll-selector-content" scrollbar-y="false">' +
+                    '<ion-scroll class="scroll-selector-content" scrollbar-y="false" on-scroll="onScroll()">' +
                         '<ion-list>' +
                             '<ion-item ng-repeat="t in list">{{t[displayField]}}</ion-item>' +
                         '</ion-list>' +
@@ -25,6 +25,22 @@ define(['app'], function (app) {
                     displayField: '@',
                     valueField: '@'
                 });
+
+                var timeOut = null;
+                $scope.onScroll = function () {
+                    scrolling();
+                    if (timeOut) {
+                        $timeout.cancel(timeOut);
+                    }
+                    timeOut = $timeout(scrollFinished, 300);
+                };
+
+                function scrolling () {
+                    console.log('scrolling');
+                }
+                function scrollFinished () {
+                    console.log('scrollFinished');
+                }
             }
         };
     }]);
