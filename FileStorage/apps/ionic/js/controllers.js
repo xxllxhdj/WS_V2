@@ -50,6 +50,31 @@ define(['app', 'ngCordova'], function (app) {
     }]);
 
     app.register.controller('ComboCtrl', ['$scope', 'ionicCombobox', function ($scope, ionicCombobox) {
+        $scope.data = {
+            list: [{
+                id: '001',
+                name: '测试1'
+            }, {
+                id: '002',
+                name: '测试2'
+            }, {
+                id: '003',
+                name: '测试3'
+            }, {
+                id: '004',
+                name: '测试4'
+            }, {
+                id: '005',
+                name: '测试5'
+            }, {
+                id: '006',
+                name: '测试6'
+            }, {
+                id: '007',
+                name: '测试7'
+            }]
+        };
+
         $scope.showActionSheet = function () {
             ionicCombobox.show({
                 data: [{

@@ -2,6 +2,32 @@
  * Created by xuxle on 2015/6/19.
  */
 define(['app'], function (app) {
+    app.register.directive('scrollSelector', ['$ionicBind', function($ionicBind) {
+        return {
+            restrict: 'E',
+            scope: true,
+            replace: true,
+            template:
+                '<div class="scroll-selector">' +
+                    '<div class="select-box select-box-top">' +
+                    '</div>' +
+                    '<div class="select-box select-box-bottom">' +
+                    '</div>' +
+                    '<ion-scroll class="scroll-selector-content" scrollbar-y="false">' +
+                        '<ion-list>' +
+                            '<ion-item ng-repeat="t in list">{{t[displayField]}}</ion-item>' +
+                        '</ion-list>' +
+                    '</ion-scroll>' +
+                '</div>',
+            link: function($scope, $element, $attr) {
+                $ionicBind($scope, $attr, {
+                    list: '=',
+                    displayField: '@',
+                    valueField: '@'
+                });
+            }
+        };
+    }]);
 
     app.register.directive('ionCombobox', ['$document', function($document) {
         return {
@@ -49,23 +75,6 @@ define(['app'], function (app) {
                     '</div>' +
                 '</div>' +
             '</div>'
-            /*
-            template:
-            '<div class="action-sheet-backdrop">' +
-                '<div class="action-sheet-wrapper">' +
-                    '<div class="action-sheet" ng-class="{\'action-sheet-has-icons\': $actionSheetHasIcon}">' +
-                        '<div class="action-sheet-group action-sheet-options">' +
-                            '<div class="action-sheet-title" ng-if="titleText" ng-bind-html="titleText"></div>' +
-                            '<button class="button action-sheet-option" ng-click="buttonClicked($index)" ng-repeat="b in buttons" ng-bind-html="b.text"></button>' +
-                            '<button class="button destructive action-sheet-destructive" ng-if="destructiveText" ng-click="destructiveButtonClicked()" ng-bind-html="destructiveText"></button>' +
-                        '</div>' +
-                        '<div class="action-sheet-group action-sheet-cancel" ng-if="cancelText">' +
-                            '<button class="button" ng-click="cancel()" ng-bind-html="cancelText"></button>' +
-                        '</div>' +
-                    '</div>' +
-                '</div>' +
-            '</div>'
-            */
         };
     }]);
 
