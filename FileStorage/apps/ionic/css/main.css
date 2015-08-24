@@ -1,3 +1,26 @@
+/*****************************************************slidebox*********************************************************/
+
+.apps-slide-box {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    overflow: hidden;
+    margin-top: -1px;
+    padding-top: 1px;
+    margin-bottom: -1px;
+    width: auto;
+    height: auto;
+}
+/*.apps-slide-box .slider-slide {*/
+    /*padding: 0 5px 40px 5px;*/
+/*}*/
+/*.apps-slide-box  .slider-pager .slider-pager-page {*/
+    /*color: #fff;*/
+/*}*/
+
+/*****************************************************slidebox*********************************************************/
 
 /*****************************************************Combobox*********************************************************/
 
