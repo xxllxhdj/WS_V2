@@ -49,7 +49,7 @@ define(['app', 'ngCordova'], function (app) {
         };
     }]);
 
-    app.register.controller('ComboCtrl', ['$scope', 'ionicCombobox', function ($scope, ionicCombobox) {
+    app.register.controller('ComboCtrl', ['$scope', 'ionicCombobox', 'wsPopup', function ($scope, ionicCombobox, wsPopup) {
         $scope.data = {
             list: [{
                 id: '001',
@@ -104,6 +104,12 @@ define(['app', 'ngCordova'], function (app) {
                 buttonClicked: function (index) {
                     return true;
                 }
+            });
+        };
+
+        $scope.showWsPopup = function () {
+            wsPopup.show({
+                content: 'wsPopup___测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试'
             });
         };
     }]);

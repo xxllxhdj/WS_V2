@@ -3,6 +3,185 @@
  */
 define(['app'], function (app) {
 
+    app.register.factory('wsPopup', [
+        '$ionicTemplateLoader',
+        '$q',
+        '$timeout',
+        '$rootScope',
+        '$ionicBody',
+        '$compile',
+        '$ionicPlatform',
+        'IONIC_BACK_PRIORITY',
+        function($ionicTemplateLoader, $q, $timeout, $rootScope, $ionicBody, $compile, $ionicPlatform, IONIC_BACK_PRIORITY) {
+
+            var config = {
+                stackPushDelay: 75
+            };
+            var POPUP_TPL =
+                '<div class="popup-container ws-popup-container" ng-class="cssClass">' +
+                    '<div class="popup ws-popup">' +
+                        '<div class="popup-body">' +
+                        '</div>' +
+                        '<i class="icon ion-ios-close-empty icon-close-right" ng-if="dismissable" ng-click="buttonTapped($event)"></i>' +
+                    '</div>' +
+                '</div>';
+            var popupStack = [];
+
+            var wsPopup = {
+                show: showPopup,
+
+                _createPopup: createPopup,
+                _popupStack: popupStack
+            };
+
+            return wsPopup;
+
+            function createPopup(options) {
+                options = angular.extend({
+                    scope: null
+                }, options || {});
+
+                var self = {};
+                self.scope = (options.scope || $rootScope).$new();
+                self.element = angular.element(POPUP_TPL);
+                self.responseDeferred = $q.defer();
+
+                $ionicBody.get().appendChild(self.element[0]);
+                $compile(self.element)(self.scope);
+
+                angular.extend(self.scope, {
+                    cssClass: options.cssClass,
+                    dismissable: options.dismissable || true,
+                    buttonTapped: function(event) {
+                        event = event.originalEvent || event; //jquery events
+
+                        if (!event.defaultPrevented) {
+                            self.responseDeferred.resolve(true);
+                        }
+                    }
+                });
+
+                $q.when(
+                    options.templateUrl ?
+                    $ionicTemplateLoader.load(options.templateUrl) :
+                    (options.template || options.content || '')
+                ).then(function(template) {
+                    var popupBody = angular.element(self.element[0].querySelector('.popup-body'));
+                    if (template) {
+                        popupBody.html(template);
+                        $compile(popupBody.contents())(self.scope);
+                    } else {
+                        popupBody.remove();
+                    }
+                });
+
+                self.show = function() {
+                    if (self.isShown || self.removed) return;
+
+                    self.isShown = true;
+                    ionic.requestAnimationFrame(function() {
+                        //if hidden while waiting for raf, don't show
+                        if (!self.isShown) return;
+
+                        self.element.removeClass('popup-hidden');
+                        self.element.addClass('popup-showing active');
+                    });
+                };
+
+                self.hide = function(callback) {
+                    callback = callback || noop;
+                    if (!self.isShown) return callback();
+
+                    self.isShown = false;
+                    self.element.removeClass('active');
+                    self.element.addClass('popup-hidden');
+                    $timeout(callback, 250, false);
+                };
+
+                self.remove = function() {
+                    if (self.removed) return;
+
+                    self.hide(function() {
+                        self.element.remove();
+                        self.scope.$destroy();
+                    });
+
+                    self.removed = true;
+                };
+
+                return self;
+            }
+
+            function onHardwareBackButton() {
+                var last = popupStack[popupStack.length - 1];
+                last && last.responseDeferred.resolve();
+            }
+
+            function showPopup(options) {
+                var popup = wsPopup._createPopup(options);
+                var showDelay = 0;
+
+                if (popupStack.length > 0) {
+                    popupStack[popupStack.length - 1].hide();
+                    showDelay = config.stackPushDelay;
+                } else {
+                    //Add popup-open & backdrop if this is first popup
+                    $ionicBody.addClass('popup-open');
+                    //only show the backdrop on the first popup
+                    wsPopup._backButtonActionDone = $ionicPlatform.registerBackButtonAction(
+                        onHardwareBackButton,
+                        IONIC_BACK_PRIORITY.popup
+                    );
+                }
+
+                // Expose a 'close' method on the returned promise
+                popup.responseDeferred.promise.close = function popupClose(result) {
+                    if (!popup.removed) popup.responseDeferred.resolve(result);
+                };
+                //DEPRECATED: notify the promise with an object with a close method
+                popup.responseDeferred.notify({ close: popup.responseDeferred.close });
+
+                doShow();
+
+                return popup.responseDeferred.promise;
+
+                function doShow() {
+                    popupStack.push(popup);
+                    $timeout(function () {
+                        popup.show();
+                        $timeout(function () {
+                            popup.responseDeferred.resolve(true);
+                        }, options.duration || 4000);
+                    }, showDelay, false);
+
+                    popup.responseDeferred.promise.then(function(result) {
+                        var index = popupStack.indexOf(popup);
+                        if (index !== -1) {
+                            popupStack.splice(index, 1);
+                        }
+
+                        if (popupStack.length > 0) {
+                            popupStack[popupStack.length - 1].show();
+                        } else {
+                            //Remove popup-open & backdrop if this is last popup
+                            $timeout(function() {
+                                // wait to remove this due to a 300ms delay native
+                                // click which would trigging whatever was underneath this
+                                if (!popupStack.length) {
+                                    $ionicBody.removeClass('popup-open');
+                                }
+                            }, 400, false);
+                            (wsPopup._backButtonActionDone || noop)();
+                        }
+
+                        popup.remove();
+
+                        return result;
+                    });
+                }
+            }
+        }]);
+
     app.register.factory('ionicCombobox', [
         '$rootScope',
         '$compile',
