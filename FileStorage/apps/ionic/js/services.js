@@ -20,9 +20,11 @@ define(['app'], function (app) {
             var POPUP_TPL =
                 '<div class="popup-container ws-popup-container" ng-class="cssClass">' +
                     '<div class="popup ws-popup">' +
-                        '<div class="popup-body">' +
+                        '<div class="ws-popup-wrapper">' +
+                            '<div class="popup-body" ng-class="{dismiss:!dismissable}">' +
+                            '</div>' +
+                            '<i class="icon ion-ios-close-empty icon-close-right" ng-if="!dismissable" ng-click="buttonTapped($event)"></i>' +
                         '</div>' +
-                        '<i class="icon ion-ios-close-empty icon-close-right" ng-if="dismissable" ng-click="buttonTapped($event)"></i>' +
                     '</div>' +
                 '</div>';
             var popupStack = [];
@@ -51,7 +53,7 @@ define(['app'], function (app) {
 
                 angular.extend(self.scope, {
                     cssClass: options.cssClass,
-                    dismissable: options.dismissable || true,
+                    dismissable: !!options.dismissable,
                     buttonTapped: function(event) {
                         event = event.originalEvent || event; //jquery events
 
@@ -151,7 +153,7 @@ define(['app'], function (app) {
                         popup.show();
                         $timeout(function () {
                             popup.responseDeferred.resolve(true);
-                        }, options.duration || 4000);
+                        }, options.duration || 3000);
                     }, showDelay, false);
 
                     popup.responseDeferred.promise.then(function(result) {

@@ -97,7 +97,8 @@
 /*****************************************************Combobox*********************************************************/
 
 .ws-popup-container {
-    top: 70%;
+    top: auto;
+    bottom: 80px;
 }
 .ws-popup-container .ws-popup {
     color: #fff;
@@ -108,7 +109,12 @@
 }
 .ws-popup .popup-body {
     background: #b94846;
+}
+.ws-popup .dismiss {
     padding-right: 35px;
+}
+.ws-popup-wrapper {
+    position: relative;
 }
 .icon-close-right {
     display: -webkit-box;
