@@ -47,9 +47,9 @@
                 slidePos = new Array(slides.length);
 
                 // determine height of each slide
-                height = container.offsetHeight || container.getBoundingClientRect().height;
+                height = 36;//(container.offsetHeight || container.getBoundingClientRect().height) / length;
 
-                element.style.height = (slides.length * height) + 'px';
+                element.style.height = (3 * height) + 'px';
 
                 // stack elements
                 var pos = slides.length;
@@ -62,7 +62,10 @@
 
                     if (browser.transitions) {
                         slide.style.top = (pos * -height) + 'px';
-                        move(pos, index > pos ? -height : (index < pos ? height : 0), 0);
+                        var k = pos - index + 1;
+                        if (k < -1) k = -1;
+                        if (k > 3) k = 3;
+                        move(pos, k * height, 0);
                     }
 
                 }

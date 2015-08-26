@@ -169,19 +169,23 @@
 .v-slider {
     position: relative;
     visibility: hidden;
-    overflow: hidden; }
+    overflow: hidden;
+    height: 108px;
+}
 
 .v-slider-slides {
     position: relative;
-    width: 100%; }
+    width: 100%;
+}
 
 .v-slider-slide {
     position: relative;
     display: block;
     float: left;
     width: 100%;
-    height: 100%;
-    vertical-align: top; }
+    height: 36px;
+    vertical-align: top;
+}
 
 /******************************************************VSlider*********************************************************/
 
