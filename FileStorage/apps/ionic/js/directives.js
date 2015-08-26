@@ -1,7 +1,134 @@
 /**
  * Created by xuxle on 2015/6/19.
  */
-define(['app'], function (app) {
+define(['app', appHelp.convertURL('ionic/lib/vslider.js', true)], function (app) {
+    app.register.directive('vSlideBox', [
+        '$timeout',
+        '$compile',
+        '$ionicSlideBoxDelegate',
+        '$ionicHistory',
+        '$ionicScrollDelegate',
+        function($timeout, $compile, $ionicSlideBoxDelegate, $ionicHistory, $ionicScrollDelegate) {
+            return {
+                restrict: 'E',
+                replace: true,
+                transclude: true,
+                scope: {
+                    autoPlay: '=',
+                    doesContinue: '@',
+                    slideInterval: '@',
+                    showPager: '@',
+                    pagerClick: '&',
+                    disableScroll: '@',
+                    onSlideChanged: '&',
+                    activeSlide: '=?'
+                },
+                controller: ['$scope', '$element', '$attrs', function($scope, $element, $attrs) {
+                    var _this = this;
+
+                    var shouldAutoPlay = angular.isDefined($attrs.autoPlay) ? !!$scope.autoPlay : false;
+                    var slideInterval = shouldAutoPlay ? $scope.$eval($scope.slideInterval) || 4000 : 0;
+
+                    var slider = new ionic.views.vSlider({
+                        el: $element[0],
+                        auto: slideInterval,
+                        startSlide: $scope.activeSlide,
+                        slidesChanged: function() {
+                            $scope.currentSlide = slider.currentIndex();
+
+                            // Try to trigger a digest
+                            $timeout(function() {});
+                        },
+                        callback: function(slideIndex) {
+                            $scope.currentSlide = slideIndex;
+                            $scope.onSlideChanged({ index: $scope.currentSlide, $index: $scope.currentSlide});
+                            $scope.$parent.$broadcast('vSlideBox.slideChanged', slideIndex);
+                            $scope.activeSlide = slideIndex;
+                            // Try to trigger a digest
+                            $timeout(function() {});
+                        },
+                        onDrag: function() {
+                            freezeAllScrolls(true);
+                        },
+                        onDragEnd: function() {
+                            freezeAllScrolls(false);
+                        }
+                    });
+
+                    function freezeAllScrolls(shouldFreeze) {
+                        if (shouldFreeze && !_this.isScrollFreeze) {
+                            $ionicScrollDelegate.freezeAllScrolls(shouldFreeze);
+
+                        } else if (!shouldFreeze && _this.isScrollFreeze) {
+                            $ionicScrollDelegate.freezeAllScrolls(false);
+                        }
+                        _this.isScrollFreeze = shouldFreeze;
+                    }
+
+                    slider.enableSlide($scope.$eval($attrs.disableScroll) !== true);
+
+                    $scope.$watch('activeSlide', function(nv) {
+                        if (angular.isDefined(nv)) {
+                            slider.slide(nv);
+                        }
+                    });
+
+                    //$scope.$on('slideBox.nextSlide', function() {
+                    //    slider.next();
+                    //});
+                    //
+                    //$scope.$on('slideBox.prevSlide', function() {
+                    //    slider.prev();
+                    //});
+                    //
+                    //$scope.$on('slideBox.setSlide', function(e, index) {
+                    //    slider.slide(index);
+                    //});
+
+                    //Exposed for testing
+                    this.__slider = slider;
+
+                    var deregisterInstance = $ionicSlideBoxDelegate._registerInstance(
+                        slider, $attrs.delegateHandle, function() {
+                            return $ionicHistory.isActiveScope($scope);
+                        }
+                    );
+                    $scope.$on('$destroy', function() {
+                        deregisterInstance();
+                        slider.kill();
+                    });
+
+                    this.slidesCount = function() {
+                        return slider.slidesCount();
+                    };
+
+                    this.onPagerClick = function(index) {
+                        void 0;
+                        $scope.pagerClick({index: index});
+                    };
+
+                    $timeout(function() {
+                        slider.load();
+                    });
+                }],
+                template: '<div class="v-slider">' +
+                '<div class="v-slider-slides" ng-transclude>' +
+                '</div>' +
+                '</div>',
+
+                link: function($scope, $element, $attr) {
+                }
+            };
+        }]);
+    app.register.directive('vSlide', function() {
+            return {
+                restrict: 'E',
+                require: '^vSlideBox',
+                compile: function(element) {
+                    element.addClass('v-slider-slide');
+                }
+            };
+        });
     app.register.directive('scrollSelector', ['$ionicBind', '$timeout', function($ionicBind, $timeout) {
         return {
             restrict: 'E',
@@ -36,10 +163,10 @@ define(['app'], function (app) {
                 };
 
                 function scrolling () {
-                    console.log('scrolling');
+                    //console.log('scrolling');
                 }
                 function scrollFinished () {
-                    console.log('scrollFinished');
+                    //console.log('scrollFinished');
                 }
             }
         };
