@@ -132,7 +132,11 @@ define(['app', appHelp.convertURL('ionic/lib/vslider.js', true)], function (app)
     app.register.directive('scrollSelector', ['$ionicBind', '$timeout', '$ionicScrollDelegate', function($ionicBind, $timeout, $ionicScrollDelegate) {
         return {
             restrict: 'E',
-            scope: true,
+            scope: {
+                list: '=',
+                selected: '=',
+                displayField: '@'
+            },
             replace: true,
             template:
                 '<div class="scroll-selector">' +
@@ -160,12 +164,6 @@ define(['app', appHelp.convertURL('ionic/lib/vslider.js', true)], function (app)
                 return { pre: prelink };
 
                 function prelink($scope, $element, $attr) {
-                    $ionicBind($scope, $attr, {
-                        list: '=',
-                        selected: '=',
-                        displayField: '@'
-                    });
-
                     var timeOut = null;
                     var height = 34;
                     $scope.onScroll = function () {
@@ -228,13 +226,9 @@ define(['app', appHelp.convertURL('ionic/lib/vslider.js', true)], function (app)
                         if (tmpIndex >= $scope.list.length) {
                             tmpIndex = $scope.list.length - 1;
                         }
-                        //$timeout(function () {
-                        //    $scope.selected = $scope.list[tmpIndex][$attr.valueField];
-                        //    console.log($scope.selected);
-                        //});
-                        $scope.selected = $scope.list[tmpIndex][$attr.valueField];
-                        $timeout(function() {});
-                        //console.log($scope.selected);
+                        $scope.$apply(function() {
+                            $scope.selected = $scope.list[tmpIndex][$attr.valueField];
+                        });
                     }
                 }
             }
