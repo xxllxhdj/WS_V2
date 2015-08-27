@@ -164,8 +164,12 @@ define(['app', appHelp.convertURL('ionic/lib/vslider.js', true)], function (app)
                 return { pre: prelink };
 
                 function prelink($scope, $element, $attr) {
+                    var index = 0;
                     var timeOut = null;
                     var height = 34;
+
+                    $timeout(init);
+
                     $scope.onScroll = function () {
                         scrolling();
                         if (timeOut) {
@@ -173,7 +177,19 @@ define(['app', appHelp.convertURL('ionic/lib/vslider.js', true)], function (app)
                         }
                         timeOut = $timeout(scrollFinished, 260);
                     };
-                    var index;
+
+                    function init () {
+                        var selected = $scope.selected,
+                            len = $scope.list.length;
+                        for (var i = 0; i < len; i++) {
+                            if ($scope.list[i][$attr.valueField] === selected) {
+                                index = i;
+                                break;
+                            }
+                        }
+                        var scrollCtrl = $ionicScrollDelegate.$getByHandle($attr.delegateHandle);
+                        scrollCtrl.scrollTo(0, index * height, true);
+                    }
                     function scrolling () {
                         var scrollCtrl = $ionicScrollDelegate.$getByHandle($attr.delegateHandle),
                             pos = scrollCtrl.getScrollPosition(),
@@ -182,12 +198,12 @@ define(['app', appHelp.convertURL('ionic/lib/vslider.js', true)], function (app)
                             return;
                         }
                         var tmpIndex = parseInt(pos.top / height + 0.5) + 1;
-                        var ionList = $element.find('ion-item');
+                        var len = $scope.list.length;
                         if (tmpIndex < 0) {
                             tmpIndex = 0;
                         }
-                        if (tmpIndex >= ionList.length) {
-                            tmpIndex = ionList.length - 1;
+                        if (tmpIndex >= len) {
+                            tmpIndex = len - 1;
                         }
                         if (index === tmpIndex) {
                             return;
