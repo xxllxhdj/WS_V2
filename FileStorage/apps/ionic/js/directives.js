@@ -140,7 +140,9 @@ define(['app', appHelp.convertURL('ionic/lib/vslider.js', true)], function (app)
                     '</div>' +
                     '<ion-scroll class="scroll-selector-content" scrollbar-y="false" on-scroll="onScroll()">' +
                         '<ion-list>' +
+                            '<ion-item></ion-item>' +
                             '<ion-item ng-repeat="t in list">{{t[displayField]}}</ion-item>' +
+                            '<ion-item></ion-item>' +
                         '</ion-list>' +
                     '</ion-scroll>' +
                 '</div>',
@@ -160,8 +162,8 @@ define(['app', appHelp.convertURL('ionic/lib/vslider.js', true)], function (app)
                 function prelink($scope, $element, $attr) {
                     $ionicBind($scope, $attr, {
                         list: '=',
-                        displayField: '@',
-                        valueField: '@'
+                        selected: '=',
+                        displayField: '@'
                     });
 
                     var timeOut = null;
@@ -171,7 +173,7 @@ define(['app', appHelp.convertURL('ionic/lib/vslider.js', true)], function (app)
                         if (timeOut) {
                             $timeout.cancel(timeOut);
                         }
-                        timeOut = $timeout(scrollFinished, 200);
+                        timeOut = $timeout(scrollFinished, 260);
                     };
                     var index;
                     function scrolling () {
@@ -186,26 +188,14 @@ define(['app', appHelp.convertURL('ionic/lib/vslider.js', true)], function (app)
                         if (tmpIndex < 0) {
                             tmpIndex = 0;
                         }
-                        if (tmpIndex > ionList.length) {
-                            tmpIndex = ionList.length;
+                        if (tmpIndex >= ionList.length) {
+                            tmpIndex = ionList.length - 1;
                         }
                         if (index === tmpIndex) {
                             return;
                         }
                         index = tmpIndex;
-
-                        var el;
-                        angular.forEach(ionList, function (ionItem, i) {
-                            el = angular.element(ionItem);
-                            if (i === index) {
-                                el.addClass('active');
-                            } else {
-                                el.removeClass('active');
-                            }
-                        });
-
-                        console.log(index);
-                        //updateList(index);
+                        select();
                     }
                     function scrollFinished () {
                         var scrollCtrl = $ionicScrollDelegate.$getByHandle($attr.delegateHandle),
@@ -219,18 +209,33 @@ define(['app', appHelp.convertURL('ionic/lib/vslider.js', true)], function (app)
                             scrollCtrl.scrollTo(0, index * height, true);
                         }
                     }
-                    //function updateList (activeIndex) {
-                    //    var ionList = $element.find('ion-item'),
-                    //        el;
-                    //    angular.forEach(ionList, function (ionItem, index) {
-                    //        el = angular.element(ionItem);
-                    //        if (index === activeIndex) {
-                    //            el.addClass('active');
-                    //        } else {
-                    //            el.removeClass('active');
-                    //        }
-                    //    });
-                    //}
+                    function select() {
+                        var ionList = $element.find('ion-item'),
+                            el;
+                        angular.forEach(ionList, function (ionItem, i) {
+                            el = angular.element(ionItem);
+                            if (i === index) {
+                                el.addClass('active');
+                            } else {
+                                el.removeClass('active');
+                            }
+                        });
+
+                        var tmpIndex = index - 1;
+                        if (tmpIndex < 0) {
+                            tmpIndex = 0;
+                        }
+                        if (tmpIndex >= $scope.list.length) {
+                            tmpIndex = $scope.list.length - 1;
+                        }
+                        //$timeout(function () {
+                        //    $scope.selected = $scope.list[tmpIndex][$attr.valueField];
+                        //    console.log($scope.selected);
+                        //});
+                        $scope.selected = $scope.list[tmpIndex][$attr.valueField];
+                        $timeout(function() {});
+                        //console.log($scope.selected);
+                    }
                 }
             }
         };

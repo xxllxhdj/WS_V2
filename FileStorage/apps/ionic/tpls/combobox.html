@@ -6,6 +6,9 @@
         <button class="button button-positive" ng-click="showWsPopup()">
             showWsPopup
         </button>
-        <scroll-selector list="data.list" display-field="name" value-field="id" delegate-handle="test"></scroll-selector>
+        <scroll-selector list="data.list" selected="data.selected"
+                         display-field="name" value-field="id" delegate-handle="test">
+        </scroll-selector>
+        <h2>{{data.selected}}</h2>
     </ion-content>
 </ion-view>

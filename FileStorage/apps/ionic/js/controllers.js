@@ -51,10 +51,8 @@ define(['app', 'ngCordova'], function (app) {
 
     app.register.controller('ComboCtrl', ['$scope', 'ionicCombobox', 'wsPopup', function ($scope, ionicCombobox, wsPopup) {
         $scope.data = {
+            selected: '003',
             list: [{
-                id: '_start',
-                name: ''
-            }, {
                 id: '001',
                 name: '测试1'
             }, {
@@ -78,13 +76,11 @@ define(['app', 'ngCordova'], function (app) {
             }, {
                 id: '008',
                 name: '测试8'
-            }, {
-                id: '_end',
-                name: ''
             }]
         };
 
         $scope.showActionSheet = function () {
+            console.log($scope.data.selected);
             ionicCombobox.show({
                 data: [{
                     id: '001',
