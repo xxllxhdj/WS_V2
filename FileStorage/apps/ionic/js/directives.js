@@ -165,32 +165,72 @@ define(['app', appHelp.convertURL('ionic/lib/vslider.js', true)], function (app)
                     });
 
                     var timeOut = null;
+                    var height = 34;
                     $scope.onScroll = function () {
                         scrolling();
                         if (timeOut) {
                             $timeout.cancel(timeOut);
                         }
-                        timeOut = $timeout(scrollFinished, 300);
+                        timeOut = $timeout(scrollFinished, 200);
                     };
-
+                    var index;
                     function scrolling () {
-                        //console.log('scrolling');
-                    }
-                    function scrollFinished () {
-                        var height = 34;
-
                         var scrollCtrl = $ionicScrollDelegate.$getByHandle($attr.delegateHandle),
                             pos = scrollCtrl.getScrollPosition(),
                             scrollView = scrollCtrl.getScrollView();
                         if (pos < 0 || pos > scrollView.__maxScrollTop) {
                             return;
                         }
-                        var index = parseInt(pos.top / height + 0.5);
+                        var tmpIndex = parseInt(pos.top / height + 0.5) + 1;
+                        var ionList = $element.find('ion-item');
+                        if (tmpIndex < 0) {
+                            tmpIndex = 0;
+                        }
+                        if (tmpIndex > ionList.length) {
+                            tmpIndex = ionList.length;
+                        }
+                        if (index === tmpIndex) {
+                            return;
+                        }
+                        index = tmpIndex;
+
+                        var el;
+                        angular.forEach(ionList, function (ionItem, i) {
+                            el = angular.element(ionItem);
+                            if (i === index) {
+                                el.addClass('active');
+                            } else {
+                                el.removeClass('active');
+                            }
+                        });
+
+                        console.log(index);
+                        //updateList(index);
+                    }
+                    function scrollFinished () {
+                        var scrollCtrl = $ionicScrollDelegate.$getByHandle($attr.delegateHandle),
+                            pos = scrollCtrl.getScrollPosition(),
+                            scrollView = scrollCtrl.getScrollView();
+                        if (pos < 0 || pos > scrollView.__maxScrollTop) {
+                            return;
+                        }
                         if (pos.top % height !== 0) {
+                            var index = parseInt(pos.top / height + 0.5);
                             scrollCtrl.scrollTo(0, index * height, true);
                         }
-                        console.log(index);
                     }
+                    //function updateList (activeIndex) {
+                    //    var ionList = $element.find('ion-item'),
+                    //        el;
+                    //    angular.forEach(ionList, function (ionItem, index) {
+                    //        el = angular.element(ionItem);
+                    //        if (index === activeIndex) {
+                    //            el.addClass('active');
+                    //        } else {
+                    //            el.removeClass('active');
+                    //        }
+                    //    });
+                    //}
                 }
             }
         };

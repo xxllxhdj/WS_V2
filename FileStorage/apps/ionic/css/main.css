@@ -74,6 +74,10 @@
     height: 34px;
     margin-top: 0;
     margin-bottom: 0;
+    color: #b6b6b6;
+}
+.scroll-selector-content .item.active {
+    color: #000;
 }
 .scroll-selector .select-box {
     position: absolute;
