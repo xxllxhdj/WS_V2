@@ -185,12 +185,11 @@ define(['app', appHelp.convertURL('ionic/lib/vslider.js', true)], function (app)
                         if (pos < 0 || pos > scrollView.__maxScrollTop) {
                             return;
                         }
-                        if (pos.top % height === 0) {
-                            return;
-                        }
                         var index = parseInt(pos.top / height + 0.5);
+                        if (pos.top % height !== 0) {
+                            scrollCtrl.scrollTo(0, index * height, true);
+                        }
                         console.log(index);
-                        scrollCtrl.scrollTo(0, index * height, true);
                     }
                 }
             }
