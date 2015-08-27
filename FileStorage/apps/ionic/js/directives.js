@@ -198,7 +198,7 @@ define(['app', appHelp.convertURL('ionic/lib/vslider.js', true)], function (app)
                             return;
                         }
                         var tmpIndex = parseInt(pos.top / height + 0.5) + 1;
-                        var len = $scope.list.length;
+                        var len = $scope.list.length + 2;
                         if (tmpIndex < 0) {
                             tmpIndex = 0;
                         }
