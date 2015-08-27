@@ -188,7 +188,7 @@ define(['app', appHelp.convertURL('ionic/lib/vslider.js', true)], function (app)
                             }
                         }
                         var scrollCtrl = $ionicScrollDelegate.$getByHandle($attr.delegateHandle);
-                        scrollCtrl.scrollTo(0, index * height, true);
+                        scrollCtrl.scrollTo(0, index * height);
                     }
                     function scrolling () {
                         var scrollCtrl = $ionicScrollDelegate.$getByHandle($attr.delegateHandle),
