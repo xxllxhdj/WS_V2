@@ -70,29 +70,31 @@
     padding: 6px;
     background: transparent;
     border: none;
+    height: 34px;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+.scroll-selector .select-box {
+    position: absolute;
+    top: 32%;
+    width: 100%;
+    height: 32px;
+    border-top: 1px solid #dcdcdc;
+    border-bottom: 1px solid #dcdcdc;
 }
 /*.scroll-selector .select-box {*/
     /*position: absolute;*/
-    /*top: 33px;*/
     /*width: 100%;*/
-    /*height: 32px;*/
-    /*border-top: 1px solid #007aff;*/
-    /*border-bottom: 1px solid #007aff;*/
+    /*height: 33px;*/
 /*}*/
-.scroll-selector .select-box {
-    position: absolute;
-    width: 100%;
-    height: 33px;
-    /*background: rgba(220, 220, 220, 1);*/
-}
-.scroll-selector .select-box-top {
-    top: 0;
-    border-bottom: 1px solid #dcdcdc;
-}
-.scroll-selector .select-box-bottom {
-    bottom: 0;
-    border-top: 1px solid #dcdcdc;
-}
+/*.scroll-selector .select-box-top {*/
+    /*top: 0;*/
+    /*border-bottom: 1px solid #dcdcdc;*/
+/*}*/
+/*.scroll-selector .select-box-bottom {*/
+    /*bottom: 0;*/
+    /*border-top: 1px solid #dcdcdc;*/
+/*}*/
 
 /*****************************************************Combobox*********************************************************/
 

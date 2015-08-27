@@ -129,16 +129,14 @@ define(['app', appHelp.convertURL('ionic/lib/vslider.js', true)], function (app)
                 }
             };
         });
-    app.register.directive('scrollSelector', ['$ionicBind', '$timeout', function($ionicBind, $timeout) {
+    app.register.directive('scrollSelector', ['$ionicBind', '$timeout', '$ionicScrollDelegate', function($ionicBind, $timeout, $ionicScrollDelegate) {
         return {
             restrict: 'E',
             scope: true,
             replace: true,
             template:
                 '<div class="scroll-selector">' +
-                    '<div class="select-box select-box-top">' +
-                    '</div>' +
-                    '<div class="select-box select-box-bottom">' +
+                    '<div class="select-box">' +
                     '</div>' +
                     '<ion-scroll class="scroll-selector-content" scrollbar-y="false" on-scroll="onScroll()">' +
                         '<ion-list>' +
@@ -146,27 +144,54 @@ define(['app', appHelp.convertURL('ionic/lib/vslider.js', true)], function (app)
                         '</ion-list>' +
                     '</ion-scroll>' +
                 '</div>',
-            link: function($scope, $element, $attr) {
-                $ionicBind($scope, $attr, {
-                    list: '=',
-                    displayField: '@',
-                    valueField: '@'
+            compile: function(element, attr) {
+                var ionScroll = element.find('ion-scroll');
+
+                angular.forEach({
+                    'delegate-handle': attr.delegateHandle
+                }, function(value, name) {
+                    if (angular.isDefined(value)) {
+                        ionScroll.attr(name, value);
+                    }
                 });
 
-                var timeOut = null;
-                $scope.onScroll = function () {
-                    scrolling();
-                    if (timeOut) {
-                        $timeout.cancel(timeOut);
-                    }
-                    timeOut = $timeout(scrollFinished, 300);
-                };
+                return { pre: prelink };
 
-                function scrolling () {
-                    //console.log('scrolling');
-                }
-                function scrollFinished () {
-                    //console.log('scrollFinished');
+                function prelink($scope, $element, $attr) {
+                    $ionicBind($scope, $attr, {
+                        list: '=',
+                        displayField: '@',
+                        valueField: '@'
+                    });
+
+                    var timeOut = null;
+                    $scope.onScroll = function () {
+                        scrolling();
+                        if (timeOut) {
+                            $timeout.cancel(timeOut);
+                        }
+                        timeOut = $timeout(scrollFinished, 300);
+                    };
+
+                    function scrolling () {
+                        //console.log('scrolling');
+                    }
+                    function scrollFinished () {
+                        var height = 34;
+
+                        var scrollCtrl = $ionicScrollDelegate.$getByHandle($attr.delegateHandle),
+                            pos = scrollCtrl.getScrollPosition(),
+                            scrollView = scrollCtrl.getScrollView();
+                        if (pos < 0 || pos > scrollView.__maxScrollTop) {
+                            return;
+                        }
+                        if (pos.top % height === 0) {
+                            return;
+                        }
+                        var index = parseInt(pos.top / height + 0.5);
+                        console.log(index);
+                        scrollCtrl.scrollTo(0, index * height, true);
+                    }
                 }
             }
         };

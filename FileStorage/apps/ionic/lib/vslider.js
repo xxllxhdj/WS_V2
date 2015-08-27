@@ -63,8 +63,8 @@
                     if (browser.transitions) {
                         slide.style.top = (pos * -height) + 'px';
                         var k = pos - index + 1;
-                        if (k < -1) k = -1;
-                        if (k > 3) k = 3;
+                        //if (k < -1) k = -1;
+                        //if (k > 3) k = 3;
                         move(pos, k * height, 0);
                     }
 
@@ -151,6 +151,23 @@
                     style.MozTransform =
                         style.OTransform = 'translateY(' + dist + 'px)';
 
+            }
+
+            function translateAll(dist, speed) {
+                var tempIndex = 0,
+                    tempPos = Number.MAX_VALUE,
+                    pos, deltaPos;
+                for(var i = 0; i < length; i++) {
+                    pos = dist + slidePos[i];
+                    translate(i, pos, speed);
+                    deltaPos = Math.abs(pos - 36);
+                    if (deltaPos < tempPos) {
+                        tempIndex = i;
+                        tempPos = deltaPos;
+                    }
+                }
+                index = tempIndex;
+                //console.log(index);
             }
 
             function animate(from, to, speed) {
@@ -317,9 +334,10 @@
                                 : 1 );                                 // no resistance if false
 
                         // translate 1:1
-                        translate(index - 1, delta.y + slidePos[index - 1], 0);
-                        translate(index, delta.y + slidePos[index], 0);
-                        translate(index + 1, delta.y + slidePos[index + 1], 0);
+                        //translate(index - 1, delta.y + slidePos[index - 1], 0);
+                        //translate(index, delta.y + slidePos[index], 0);
+                        //translate(index + 1, delta.y + slidePos[index + 1], 0);
+                        translateAll(delta.y, 0);
 
                         options.onDrag && options.onDrag();
                     }
@@ -336,6 +354,18 @@
                         Math.abs(delta.y) > 20 ||         // and if slide amt is greater than 20px
                         Math.abs(delta.y) > height / 2;      // or if slide amt is greater than half the height
 
+                    if (isValidSlide) {
+                        // stack elements
+                        var pos = slides.length;
+                        while(pos--) {
+                            var slide = slides[pos];
+                            if (browser.transitions) {
+                                var k = pos - index + 1;
+                                move(pos, k * height, 200);
+                            }
+                        }
+                    }
+                    /*
                     // determine if slide attempt is past start and end
                     var isPastBounds = (!index && delta.y > 0) ||      // if first slide and slide amt is greater than 0
                         (index == slides.length - 1 && delta.y < 0); // or if last slide and slide amt is less than 0
@@ -376,6 +406,7 @@
                         }
 
                     }
+                    */
 
                     // kill touchmove and touchend event listeners until touchstart called again
                     if(browser.touch) {
