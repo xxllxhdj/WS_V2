@@ -214,6 +214,7 @@
     min-height: 42px;
     padding-left: 12px;
     padding-right: 12px;
+    color: #fff;
     z-index: 30;
 }
 .button-flow .flow-box {

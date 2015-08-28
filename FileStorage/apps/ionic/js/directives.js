@@ -2,7 +2,7 @@
  * Created by xuxle on 2015/6/19.
  */
 define(['app', appHelp.convertURL('ionic/lib/vslider.js', true)], function (app) {
-    app.register.directive('buttonFlow', ['$document', function($document) {
+    app.register.directive('buttonFlow', ['$timeout', function($timeout) {
         return {
             restrict: 'E',
             scope: {
@@ -14,10 +14,48 @@ define(['app', appHelp.convertURL('ionic/lib/vslider.js', true)], function (app)
             template:
                 '<div class="button-flow" ng-class="cssClass">' +
                     '<div class="flow-box"></div>' +
-                    '<button ng-repeat="flow in buttons">{{flow}}</button>' +
+                    '<button ng-repeat="flow in buttons" ng-click="onClick($index)">{{flow}}</button>' +
                 '</div>',
             link: function($scope, $element, $attr) {
+                $timeout(init);
 
+                $scope.onClick = function (index) {
+                    translate(index, 300);
+                };
+
+                function init () {
+                    var buttons = $element.find('button'),
+                        len = buttons.length;//,
+                        //element = $element[0];
+                    //element[0].style.width = (len * element.offsetWidth) + 'px';
+                    //element[0].style.height = element.offsetHeight + 'px';
+                    angular.forEach(buttons, function (button, index) {
+                        button.style.left = (index * 100 / len).toString() + '%';
+                    });
+                }
+
+                function translate(to, speed) {
+
+                    var flowBox = $element[0].children[0];
+                    var style = flowBox && flowBox.style;
+
+                    if (!style) return;
+
+                    var buttons = $element.find('button');
+                    var dist = to * buttons[0].offsetWidth;
+
+                    style.webkitTransitionDuration =
+                        style.MozTransitionDuration =
+                            style.msTransitionDuration =
+                                style.OTransitionDuration =
+                                    style.transitionDuration = speed + 'ms';
+
+                    style.webkitTransform = 'translate(' + dist + 'px,0)' + 'translateZ(0)';
+                    style.msTransform =
+                        style.MozTransform =
+                            style.OTransform = 'translateX(' + dist + 'px)';
+
+                }
             }
         };
     }]);
