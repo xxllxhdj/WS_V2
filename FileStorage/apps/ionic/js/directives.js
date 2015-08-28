@@ -7,7 +7,6 @@ define(['app', appHelp.convertURL('ionic/lib/vslider.js', true)], function (app)
             restrict: 'E',
             scope: {
                 buttons: '=',
-                buttonWidth: '@',
                 start: '@',
                 cssClass: '@',
                 onFlowSelect: '&'
@@ -22,12 +21,15 @@ define(['app', appHelp.convertURL('ionic/lib/vslider.js', true)], function (app)
                 $timeout(init);
 
                 $scope.onClick = function (index) {
-                    translate(index, 300);
+                    translate(index, 160);
+                    updateFlow(-1);
                     $timeout(function () {
-                        $scope.onFlowSelect && $scope.onFlowSelect({index: index});
-                    });
+                        updateFlow(index);
+                    }, 160);
+                    $scope.onFlowSelect && $scope.onFlowSelect({index: index});
                 };
 
+                var width = 40;
                 function init () {
                     var buttons = $element.find('button'),
                         len = buttons.length,
@@ -35,14 +37,17 @@ define(['app', appHelp.convertURL('ionic/lib/vslider.js', true)], function (app)
                     if (len === 0) {
                         return;
                     }
-                    var width = parseInt($attr.buttonWidth) || 60;
-                    element.style.width = (len * width) + 'px';
-                    element.style.height = buttons[0].offsetHeight + 'px';
-                    angular.forEach(buttons, function (button, index) {
-                        button.style.width = width + 'px';
-                        button.style.left = (index * 100 / len).toString() + '%';
+                    angular.forEach(buttons, function (button) {
+                        if (button.offsetWidth > width) {
+                            width = button.offsetWidth;
+                        }
                     });
-                    translate(parseInt($attr.start) || 0, 0);
+                    angular.forEach(buttons, function (button) {
+                        button.style.width = width + 'px';
+                    });
+                    var start = parseInt($attr.start) || 0;
+                    translate(start, 0);
+                    updateFlow(start);
                 }
 
                 function translate(to, speed) {
@@ -53,7 +58,7 @@ define(['app', appHelp.convertURL('ionic/lib/vslider.js', true)], function (app)
                     if (!style) return;
 
                     var buttons = $element.find('button');
-                    var width = parseInt($attr.buttonWidth) || 60;
+                    //var width = buttons[0].offsetWidth;
                     var dist = to * width;
 
                     style.webkitTransitionDuration =
@@ -67,6 +72,18 @@ define(['app', appHelp.convertURL('ionic/lib/vslider.js', true)], function (app)
                         style.MozTransform =
                             style.OTransform = 'translateX(' + dist + 'px)';
 
+                }
+                function updateFlow (index) {
+                    var buttons = $element.find('button'),
+                        el;
+                    angular.forEach(buttons, function (button, i) {
+                        el = angular.element(button);
+                        if (i === index) {
+                            el.addClass('active');
+                        } else {
+                            el.removeClass('active');
+                        }
+                    });
                 }
             }
         };
