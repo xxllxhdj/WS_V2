@@ -25,10 +25,14 @@ define(['app', appHelp.convertURL('ionic/lib/vslider.js', true)], function (app)
 
                 function init () {
                     var buttons = $element.find('button'),
-                        len = buttons.length;//,
-                        //element = $element[0];
-                    //element[0].style.width = (len * element.offsetWidth) + 'px';
-                    //element[0].style.height = element.offsetHeight + 'px';
+                        len = buttons.length,
+                        element = $element[0];
+                    if (len === 0) {
+                        return;
+                    }
+                    var width = buttons[0].offsetWidth;
+                    element.style.width = (len * width) + 'px';
+                    element.style.height = buttons[0].offsetHeight + 'px';
                     angular.forEach(buttons, function (button, index) {
                         button.style.left = (index * 100 / len).toString() + '%';
                     });
