@@ -135,11 +135,12 @@ define(['app', appHelp.convertURL('ionic/lib/vslider.js', true)], function (app)
             scope: {
                 list: '=',
                 selected: '=',
-                displayField: '@'
+                displayField: '@',
+                cssClass: '@'
             },
             replace: true,
             template:
-                '<div class="scroll-selector">' +
+                '<div class="scroll-selector" ng-class="cssClass">' +
                     '<div class="select-box">' +
                     '</div>' +
                     '<ion-scroll class="scroll-selector-content" scrollbar-y="false" on-scroll="onScroll()">' +
