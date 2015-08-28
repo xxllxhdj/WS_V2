@@ -10,6 +10,7 @@
                          display-field="name" value-field="id" delegate-handle="test">
         </scroll-selector>
         <h2>{{data.selected}}</h2>
-        <button-flow buttons="data.buttons"></button-flow>
+        <button-flow buttons="data.buttons" start="1" on-flow-select="onSelect(index)"></button-flow>
+        <h2>{{data.index}}</h2>
     </ion-content>
 </ion-view>

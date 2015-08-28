@@ -77,7 +77,12 @@ define(['app', 'ngCordova'], function (app) {
                 id: '008',
                 name: '测试8'
             }],
-            buttons: ['测试1', '测试2', '测试3', '测试4']
+            buttons: ['测试1', '测试2', '测试3', '测试4'],
+            index: 0
+        };
+
+        $scope.onSelect = function (index) {
+            $scope.data.index = index;
         };
 
         $scope.showActionSheet = function () {

@@ -7,8 +7,9 @@ define(['app', appHelp.convertURL('ionic/lib/vslider.js', true)], function (app)
             restrict: 'E',
             scope: {
                 buttons: '=',
-                activeIndex: '=',
-                cssClass: '@'
+                start: '@',
+                cssClass: '@',
+                onFlowSelect: '&'
             },
             replace: true,
             template:
@@ -21,6 +22,9 @@ define(['app', appHelp.convertURL('ionic/lib/vslider.js', true)], function (app)
 
                 $scope.onClick = function (index) {
                     translate(index, 300);
+                    $timeout(function () {
+                        $scope.onFlowSelect && $scope.onFlowSelect({index: index});
+                    });
                 };
 
                 function init () {
@@ -36,6 +40,7 @@ define(['app', appHelp.convertURL('ionic/lib/vslider.js', true)], function (app)
                     angular.forEach(buttons, function (button, index) {
                         button.style.left = (index * 100 / len).toString() + '%';
                     });
+                    translate(parseInt($attr.start) || 0, 0);
                 }
 
                 function translate(to, speed) {
