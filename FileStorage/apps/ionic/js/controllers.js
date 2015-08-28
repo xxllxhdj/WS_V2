@@ -76,7 +76,8 @@ define(['app', 'ngCordova'], function (app) {
             }, {
                 id: '008',
                 name: '测试8'
-            }]
+            }],
+            buttons: ['测试1', '测试2', '测试3', '测试4']
         };
 
         $scope.showActionSheet = function () {

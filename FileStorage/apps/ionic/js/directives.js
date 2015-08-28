@@ -2,6 +2,26 @@
  * Created by xuxle on 2015/6/19.
  */
 define(['app', appHelp.convertURL('ionic/lib/vslider.js', true)], function (app) {
+    app.register.directive('buttonFlow', ['$document', function($document) {
+        return {
+            restrict: 'E',
+            scope: {
+                buttons: '=',
+                activeIndex: '=',
+                cssClass: '@'
+            },
+            replace: true,
+            template:
+                '<div class="button-flow" ng-class="cssClass">' +
+                    '<div class="flow-box"></div>' +
+                    '<button ng-repeat="flow in buttons">{{flow}}</button>' +
+                '</div>',
+            link: function($scope, $element, $attr) {
+
+            }
+        };
+    }]);
+
     app.register.directive('vSlideBox', [
         '$timeout',
         '$compile',
