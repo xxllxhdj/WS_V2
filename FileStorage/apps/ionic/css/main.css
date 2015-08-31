@@ -208,9 +208,9 @@
     position: relative;
     border: none;
     background: transparent;
-    min-height: 42px;
-    padding-left: 15px;
-    padding-right: 15px;
+    min-height: 36px;
+    padding-left: 10px;
+    padding-right: 10px;
     color: #000;
 }
 .button-flow > button.active {

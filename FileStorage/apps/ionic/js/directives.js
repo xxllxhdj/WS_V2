@@ -58,7 +58,6 @@ define(['app', appHelp.convertURL('ionic/lib/vslider.js', true)], function (app)
                     if (!style) return;
 
                     var buttons = $element.find('button');
-                    //var width = buttons[0].offsetWidth;
                     var dist = to * width;
 
                     style.webkitTransitionDuration =

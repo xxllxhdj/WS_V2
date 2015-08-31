@@ -77,7 +77,7 @@ define(['app', 'ngCordova'], function (app) {
                 id: '008',
                 name: '测试8'
             }],
-            buttons: ['测试1', '测试测试2', '测试3', '测试4'],
+            buttons: ['测试1', '测试2', '测试3', '测试4'],
             index: 0
         };
 
@@ -86,7 +86,6 @@ define(['app', 'ngCordova'], function (app) {
         };
 
         $scope.showActionSheet = function () {
-            console.log($scope.data.selected);
             ionicCombobox.show({
                 data: [{
                     id: '001',
