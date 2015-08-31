@@ -2,6 +2,35 @@
  * Created by xuxle on 2015/6/19.
  */
 define(['app', appHelp.convertURL('ionic/lib/vslider.js', true)], function (app) {
+
+    app.register.directive('scrollAccordion', ['$timeout', function($timeout) {
+        return {
+            restrict: 'E',
+            transclude: true,
+            replace: true,
+            template:
+            '<ion-scroll class="scroll-accordion">' +
+                '<div ng-transclude></div>' +
+            '</ion-scroll>'
+        };
+    }]);
+
+    app.register.directive('scrollAccordionItem', function() {
+        return {
+            restrict: 'E',
+            scope: {
+                heading: '@'
+            },
+            transclude: true,
+            replace: true,
+            template:
+                '<div class="scroll-accordion-item">' +
+                    '<div class="header">{{heading}}</div>' +
+                    '<div class="body" ng-transclude></div>' +
+                '</div>'
+        };
+    });
+
     app.register.directive('buttonFlow', ['$timeout', function($timeout) {
         return {
             restrict: 'E',

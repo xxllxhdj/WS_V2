@@ -78,7 +78,50 @@ define(['app', 'ngCordova'], function (app) {
                 name: '测试8'
             }],
             buttons: ['测试1', '测试2', '测试3', '测试4'],
-            index: 0
+            index: 0,
+            accordions: [{
+                title: '测试1',
+                items: [{
+                    id: '001',
+                    name: '测试11'
+                }, {
+                    id: '002',
+                    name: '测试12'
+                }, {
+                    id: '003',
+                    name: '测试13'
+                }, {
+                    id: '0010',
+                    name: '测试14'
+                }, {
+                    id: '0011',
+                    name: '测试15'
+                }]
+            }, {
+                title: '测试2',
+                items: [{
+                    id: '004',
+                    name: '测试21'
+                }, {
+                    id: '005',
+                    name: '测试22'
+                }, {
+                    id: '006',
+                    name: '测试23'
+                }]
+            }, {
+                title: '测试3',
+                items: [{
+                    id: '007',
+                    name: '测试31'
+                }, {
+                    id: '008',
+                    name: '测试32'
+                }, {
+                    id: '009',
+                    name: '测试33'
+                }]
+            }]
         };
 
         $scope.onSelect = function (index) {
