@@ -10,19 +10,32 @@ define(['app', appHelp.convertURL('ionic/lib/vslider.js', true)], function (app)
             replace: true,
             template:
                 '<div class="scroll-accordion">' +
-                    '<div class="select-box"></div>' +
-                    '<div class="select-box"></div>' +
+                    '<div class="header"></div>' +
+                    '<div class="header"></div>' +
                     '<ion-scroll class="scroll-accordion-content" on-scroll="onScroll()">' +
-                        '<div ng-transclude></div>' +
+                        '<div class="scroll-accordion-wrapper" ng-transclude></div>' +
                     '</ion-scroll>' +
                 '</div>',
             link: function($scope, $element, $attr) {
+                $timeout(init);
+
                 $scope.onScroll = function () {
                     scrolling();
                 };
 
                 function scrolling () {
-                    var accordions = $element.find('scroll-accordion-item');
+
+                }
+                function init () {
+                    var accordions = $element[0].querySelector('.scroll-accordion-wrapper');
+                    if (accordions.children.length === 0) {
+                        return;
+                    }
+                    var accordionHeader = accordions.children[0].children[0],
+                        el = $element[0].children[0];
+                    el.style.height = accordionHeader.offsetHeight + 'px';
+                    el.innerText = accordionHeader.innerText;
+                    $element[0].children[1].style.display = 'none';
                 }
             }
         };
@@ -35,6 +48,7 @@ define(['app', appHelp.convertURL('ionic/lib/vslider.js', true)], function (app)
                 title: '@'
             },
             transclude: true,
+            replace: true,
             template:
                 '<div class="scroll-accordion-item">' +
                     '<div class="header">{{title}}</div>' +

@@ -231,13 +231,26 @@
 
 /**************************************************Scroll Accordion****************************************************/
 
+.scroll-accordion {
+    position: relative;
+}
 .scroll-accordion .scroll-accordion-content {
     height: 100%;
 }
+.scroll-accordion > .header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: #fff;
+    z-index: 10;
+}
 
+.scroll-accordion .header,
 .scroll-accordion-item .header {
     padding: 10px 16px;
     font-weight: bold;
+    text-align: center;
 }
 
 /**************************************************Scroll Accordion****************************************************/
