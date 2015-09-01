@@ -62,7 +62,12 @@ define(['app', appHelp.convertURL('ionic/lib/vslider.js', true)], function (app)
                         if (Math.abs(deltaY) < 0.000001) {
                             //console.log('666');
                         } else if (Math.abs(deltaY) < headerHeight) {
-                            translate(deltaY);
+                            if (deltaY < 0 && pos.top > lastTop) {
+                                translate(deltaY);
+                            }
+                            //if (deltaY > 0 && pos.top < lastTop) {
+                            //    translate(deltaY);
+                            //}
                         }
                         lastTop = pos.top;
                     }
