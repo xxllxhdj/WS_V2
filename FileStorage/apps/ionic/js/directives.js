@@ -52,7 +52,7 @@ define(['app', appHelp.convertURL('ionic/lib/vslider.js', true)], function (app)
                             //console.log('666');
                         } else if (Math.abs(deltaY) < activeHeight) {
                             var deltaM = pos.top - lastTop;
-                            if (Math.abs(deltaY) < 0.000001) {
+                            if (Math.abs(deltaM) < 0.000001) {
                             } else if (pos.top > lastTop) {
                                 //console.log('上');
                             } else {
@@ -101,62 +101,6 @@ define(['app', appHelp.convertURL('ionic/lib/vslider.js', true)], function (app)
                     }
                 }
             }
-            /*
-            link: function($scope, $element, $attr) {
-                $timeout(init);
-
-                $scope.onScroll = function () {
-                    scrolling();
-                };
-
-                var index = 0,
-                    lastTop = 0,
-                    headerHeight;
-                function scrolling () {
-                    var scrollCtrl = $ionicScrollDelegate.$getByHandle($attr.delegateHandle),
-                        pos = scrollCtrl.getScrollPosition(),
-                        scrollView = scrollCtrl.getScrollView();
-                    if (pos.top < 0 || pos.top > scrollView.__maxScrollTop) {
-                        return;
-                    }
-                    var accordions = $element[0].querySelector('.scroll-accordion-wrapper'),
-                        activeHeight = accordions.children[index].offsetHeight;
-                    var deltaY = pos.top + headerHeight - activeHeight;
-                    console.log(deltaY);
-                    if (pos.top) {}
-                }
-                function init () {
-                    var accordions = $element[0].querySelector('.scroll-accordion-wrapper');
-                    if (accordions.children.length === 0) {
-                        return;
-                    }
-
-                    var accordionHeader = accordions.children[0].children[0],
-                        el = $element[0].children[0];
-                    el.style.height = accordionHeader.offsetHeight + 'px';
-                    el.innerText = accordionHeader.innerText;
-
-                    headerHeight = accordionHeader.offsetHeight;
-                }
-                function translate(dist, speed) {
-                    var header = $element[0].children[0];
-                    var style = header && header.style;
-                    if (!style) return;
-
-                    style.webkitTransitionDuration =
-                        style.MozTransitionDuration =
-                            style.msTransitionDuration =
-                                style.OTransitionDuration =
-                                    style.transitionDuration = speed + 'ms';
-
-                    style.webkitTransform = 'translate(' + dist + 'px,0)' + 'translateZ(0)';
-                    style.msTransform =
-                        style.MozTransform =
-                            style.OTransform = 'translateX(' + dist + 'px)';
-
-                }
-            }
-            */
         };
     }]);
 
