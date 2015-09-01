@@ -12,7 +12,7 @@
         <h2>{{data.selected}}</h2>
         <button-flow buttons="data.buttons" start="1" on-flow-select="onSelect(index)"></button-flow>
         <h2>{{data.index}}</h2>
-        <scroll-accordion style="height: 260px">
+        <scroll-accordion style="height: 260px" delegate-handle="testAccordion">
             <scroll-accordion-item ng-repeat="accordion in data.accordions" title="{{accordion.title}}">
                 <ion-item ng-repeat="item in accordion.items">{{item.name}}</ion-item>
             </scroll-accordion-item>

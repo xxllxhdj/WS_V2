@@ -120,6 +120,15 @@ define(['app', 'ngCordova'], function (app) {
                 }, {
                     id: '009',
                     name: '测试33'
+                }, {
+                    id: '012',
+                    name: '测试34'
+                }, {
+                    id: '013',
+                    name: '测试35'
+                }, {
+                    id: '014',
+                    name: '测试36'
                 }]
             }]
         };
