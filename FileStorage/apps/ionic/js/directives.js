@@ -35,29 +35,34 @@ define(['app', appHelp.convertURL('ionic/lib/vslider.js', true)], function (app)
                         scrolling();
                     };
 
-                    var index = 1,
+                    var index = 0,
                         lastTop = 0,
                         headerHeight;
                     function scrolling () {
                         var scrollCtrl = $ionicScrollDelegate.$getByHandle($attr.delegateHandle),
                             pos = scrollCtrl.getScrollPosition(),
                             scrollView = scrollCtrl.getScrollView();
+                        var deltaM = pos.top - lastTop;
+                        if (Math.abs(deltaM) < 0.000001) {
+                            lastTop = pos.top;
+                            return;
+                        }
+                        if (pos.top > lastTop) {
+                            //console.log('上');
+                        } else {
+                            //console.log('下');
+                        }
                         if (pos.top < 0 || pos.top > scrollView.__maxScrollTop) {
+                            lastTop = pos.top;
                             return;
                         }
                         var activeHeight = getActiveHeight();
-                        var deltaY = pos.top + headerHeight - activeHeight;
+                        var deltaY = activeHeight - pos.top - headerHeight;
                         //console.log(deltaY);
                         if (Math.abs(deltaY) < 0.000001) {
                             //console.log('666');
-                        } else if (Math.abs(deltaY) < activeHeight) {
-                            var deltaM = pos.top - lastTop;
-                            if (Math.abs(deltaM) < 0.000001) {
-                            } else if (pos.top > lastTop) {
-                                //console.log('上');
-                            } else {
-                                //console.log('下');
-                            }
+                        } else if (Math.abs(deltaY) < headerHeight) {
+                            translate(deltaY);
                         }
                         lastTop = pos.top;
                     }
@@ -82,21 +87,15 @@ define(['app', appHelp.convertURL('ionic/lib/vslider.js', true)], function (app)
                         }
                         return activeHeight;
                     }
-                    function translate(dist, speed) {
+                    function translate(dist) {
                         var header = $element[0].children[0];
                         var style = header && header.style;
                         if (!style) return;
 
-                        style.webkitTransitionDuration =
-                            style.MozTransitionDuration =
-                                style.msTransitionDuration =
-                                    style.OTransitionDuration =
-                                        style.transitionDuration = speed + 'ms';
-
-                        style.webkitTransform = 'translate(' + dist + 'px,0)' + 'translateZ(0)';
+                        style.webkitTransform = 'translate(0,' + dist + 'px)' + 'translateZ(0)';
                         style.msTransform =
                             style.MozTransform =
-                                style.OTransform = 'translateX(' + dist + 'px)';
+                                style.OTransform = 'translateY(' + dist + 'px)';
 
                     }
                 }
