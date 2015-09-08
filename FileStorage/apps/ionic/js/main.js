@@ -4,7 +4,8 @@ define([
     appHelp.convertURL('ionic/js/controllers.js', true),
     appHelp.convertURL('ionic/js/directives.js', true),
     appHelp.convertURL('ionic/js/services.js', true),
-    appHelp.convertURL('ionic/js/filters.js', true)
+    appHelp.convertURL('ionic/js/filters.js', true),
+    appHelp.convertURL('ionic/lib/pinyin.js', true)
 ], function (app) {
     app.register
         .state('app.ionic', {
@@ -50,4 +51,5 @@ define([
                 }
             }
         });
+    console.log(pinyin.getCamelChars('测试'));
 });
