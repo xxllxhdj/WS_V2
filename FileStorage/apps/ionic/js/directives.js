@@ -10,7 +10,6 @@ define(['app'], function (app) {
             replace: true,
             template:
                 '<div class="scroll-accordion">' +
-                    '<div class="header"></div>' +
                     '<ion-scroll class="scroll-accordion-content" on-scroll="onScroll()">' +
                         '<div class="scroll-accordion-wrapper" ng-transclude></div>' +
                     '</ion-scroll>' +
@@ -29,79 +28,83 @@ define(['app'], function (app) {
                 return {pre: prelink};
 
                 function prelink($scope, $element, $attr) {
-                    $timeout(init);
+                    //$timeout(init);
 
                     $scope.onScroll = function () {
                         scrolling();
                     };
 
-                    var index = 0,
-                        lastTop = 0,
+                    var _index = -1,
                         headerHeight;
                     function scrolling () {
                         var scrollCtrl = $ionicScrollDelegate.$getByHandle($attr.delegateHandle),
                             pos = scrollCtrl.getScrollPosition(),
                             scrollView = scrollCtrl.getScrollView();
-                        var deltaM = pos.top - lastTop;
-                        if (Math.abs(deltaM) < 0.000001) {
-                            lastTop = pos.top;
-                            return;
-                        }
-                        if (pos.top > lastTop) {
-                            //console.log('上');
-                        } else {
-                            //console.log('下');
-                        }
                         if (pos.top < 0 || pos.top > scrollView.__maxScrollTop) {
-                            lastTop = pos.top;
                             return;
                         }
+                        updateActiveAccordion(pos.top);
                         var activeHeight = getActiveHeight();
                         var deltaY = activeHeight - pos.top - headerHeight;
                         //console.log(deltaY);
                         if (Math.abs(deltaY) < 0.000001) {
                             //console.log('666');
                         } else if (Math.abs(deltaY) < headerHeight) {
-                            if (deltaY < 0 && pos.top > lastTop) {
-                                translate(deltaY);
-                            }
+                            //if (deltaY < 0 && pos.top > lastTop) {
+                            //    translate(deltaY);
+                            //}
                             //if (deltaY > 0 && pos.top < lastTop) {
                             //    translate(deltaY);
                             //}
                         }
-                        lastTop = pos.top;
                     }
                     function init () {
-                        var accordions = $element[0].querySelector('.scroll-accordion-wrapper');
-                        if (accordions.children.length === 0) {
-                            return;
+                    }
+                    function updateActiveAccordion (scrollTop) {
+                        var accordions = $element[0].querySelector('.scroll-accordion-wrapper').children,
+                            len = accordions.length,
+                            temp = 0;
+                        for (var i = 0; i < len; i++) {
+                            if (accordions[i].offsetTop > parseInt(scrollTop)) {
+                                temp = i - 1;
+                                break;
+                            }
                         }
-
-                        var accordionHeader = accordions.children[0].children[0],
-                            el = $element[0].children[0];
-                        el.style.height = accordionHeader.offsetHeight + 'px';
-                        el.innerText = accordionHeader.innerText;
-
-                        headerHeight = accordionHeader.offsetHeight;
+                        if (i === 0) {
+                            temp = 0;
+                        } else if (i === len) {
+                            temp = len - 1;
+                        }
+                        if (temp !== _index) {
+                            _index = temp;
+                            //updateStyle();
+                            console.log(_index);
+                        }
+                    }
+                    function updateStyle () {
+                        var accordions = $element[0].querySelector('.scroll-accordion-wrapper').children,
+                            len = accordions.length,
+                            style;
+                        for (var i = 0; i < len; i++) {
+                            style = accordions[i].children[0].style;
+                            if (!style) {
+                                continue;
+                            }
+                            if (i === _index) {
+                                style.position = 'absolute';
+                                style.top = element[0].offsetTop + 'px';
+                            } else {
+                                style.position = 'relative';
+                            }
+                        }
                     }
                     function getActiveHeight () {
                         var accordions = $element[0].querySelector('.scroll-accordion-wrapper'),
                             activeHeight = 0;
-                        for (var i = 0; i <= index; i++) {
+                        for (var i = 0; i <= _index; i++) {
                             activeHeight += accordions.children[i].offsetHeight;
                         }
                         return activeHeight;
-                    }
-                    function translate(dist) {
-                        var header = $element[0].children[0];
-                        var style = header && header.style;
-                        if (!style) return;
-
-                        style.webkitTransform = 'translate(0,' + dist + 'px)' + 'translateZ(0)';
-                        style.msTransform =
-                            style.MozTransform =
-                                style.OTransform = 'translateY(' + dist + 'px)';
-
                     }
                 }
             }
@@ -224,7 +227,7 @@ define(['app'], function (app) {
                 '<div class="scroll-selector" ng-class="cssClass">' +
                     '<div class="select-box">' +
                     '</div>' +
-                    '<ion-scroll class="scroll-selector-content" scrollbar-y="false" on-scroll="onScroll()">' +
+                    '<ion-scroll class="scroll-selector-content" scrollbar-y="false" has-bouncing="true" on-scroll="onScroll()">' +
                         '<ion-list>' +
                             '<ion-item></ion-item>' +
                             '<ion-item ng-repeat="t in list">{{t[displayField]}}</ion-item>' +

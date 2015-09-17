@@ -30,6 +30,11 @@ define(['ionic'], function () {
                 logo: 'img/bootstrap.jpg',
                 enabled: true
             }, {
+                id: 'css',
+                name: 'css',
+                logo: 'img/css.jpg',
+                enabled: true
+            }, {
                 id: 'baiduMap',
                 name: '百度地图',
                 logo: 'img/baiduMap.png',

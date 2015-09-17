@@ -1,0 +1,37 @@
+/*******************************************************border.html****************************************************/
+
+.border-base {
+    width: 200px;
+    height: 200px;
+    background: #35CCF9;
+    margin: 5px auto;
+    border-top: 100px solid red;
+    border-right: 100px solid green;
+    border-bottom: 100px solid black;
+    border-left: 100px solid darkblue;
+}
+
+.border-wrapper {
+    width: 200px;
+    height: 200px;
+    background: #35CCF9;
+    margin: 5px auto;
+}
+.border-wipe {
+    position: absolute;
+    right: 50%;
+    margin-right: -100px;
+    border-style: solid;
+    border-width: 0;
+    border-color: rgba(0,0,0,0.2) #fff;
+    border-radius: 0 0 0 4px;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.3), -1px 1px 1px rgba(0,0,0,0.2);
+    -webkit-transition: all 0.4s ease-out;
+    transition: all 0.4s ease-out;
+}
+.border-wrapper:hover .border-wipe {
+    border-right-width: 80px;
+    border-bottom-width: 80px;
+}
+
+/*******************************************************border.html****************************************************/
