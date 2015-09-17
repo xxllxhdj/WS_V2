@@ -21,7 +21,8 @@ define([
             url: '/border',
             views: {
                 'menuContent': {
-                    templateUrl: appHelp.convertURL('css/tpls/border.html')
+                    templateUrl: appHelp.convertURL('css/tpls/border.html'),
+                    controller: 'CssCtrl'
                 }
             }
         });

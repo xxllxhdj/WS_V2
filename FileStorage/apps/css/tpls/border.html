@@ -1,8 +1,24 @@
 <ion-view title="border">
     <ion-content class="has-tabs">
         <div class="border-base"></div>
-        <div class="border-wrapper">
-            <div class="border-wipe"></div>
+        <div class="border-wrapper" ng-click="swipe($event)">
+            <div class="border-wipe" ng-class="{swiped:data.swiped}"></div>
+        </div>
+        <div class="paper-flip" ng-click="onClick($event)" ng-class="data.exClass">
+
+            <div class="share-layer">
+                <div class="btn-wrap">
+                    <a class="btn btn-facebook">FaceBook</a>
+                    <a class="btn btn-twitter">Twitter</a>
+                    <a class="btn btn-google">Google +</a>
+                </div>
+                <span class="btn-close">×</span>
+            </div>
+
+            <div class="image-layer" id="image-layer">
+                <img src="http://p6.qhimg.com/d/inn/3f563406/table.jpg" alt="">
+            </div>
+
         </div>
     </ion-content>
 </ion-view>
