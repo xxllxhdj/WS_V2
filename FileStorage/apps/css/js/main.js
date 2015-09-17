@@ -25,5 +25,13 @@ define([
                     controller: 'CssCtrl'
                 }
             }
+        })
+        .state('app.loading', {
+            url: '/loading',
+            views: {
+                'menuContent': {
+                    templateUrl: appHelp.convertURL('css/tpls/loading.html')
+                }
+            }
         });
 });
