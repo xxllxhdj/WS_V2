@@ -16,10 +16,14 @@
     width: 200px;
     height: 200px;
     background: #35CCF9;
-    margin: 5px auto;
 }
-.border-wipe {
+.border-wipes {
+    width: 200px;
+    height: 200px;
+}
+.border-wipes:before {
     position: absolute;
+    content: '';
     right: 50%;
     margin-right: -100px;
     border-style: solid;
@@ -29,13 +33,11 @@
     box-shadow: 0 1px 1px rgba(0,0,0,0.3), -1px 1px 1px rgba(0,0,0,0.2);
     -webkit-transition: all 0.4s ease-out;
     transition: all 0.4s ease-out;
-    box-sizing: border-box;
-}
-.border-wipe {
+
     border-right-width: 80px;
     border-bottom-width: 80px;
 }
-.border-wipe.swiped {
+.border-wipes.swiped:before {
     border-right-width: 400px;
     border-bottom-width: 400px;
 }
@@ -46,7 +48,6 @@
     height: 300px;
     margin: 0 auto;
 }
-
 .share-layer {
     position: absolute;
     left: 0;
@@ -56,7 +57,6 @@
     background-color: #fff;
     box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
 }
-
 .btn-wrap {
     pointer-events: none;
     opacity: 0;
@@ -64,18 +64,15 @@
     margin-top: 140px;
     text-align: center;
 }
-
 .btn {
     padding: 10px;
     border-radius: 2px;
     color: #fff;
     display: inline-block;
 }
-
 .btn-facebook {
     background-color: #3b5998;
 }
-
 .btn-twitter {
     background-color: #00aced;
     margin: 0 20px;
@@ -83,7 +80,6 @@
 .btn-google {
     background-color: #d34836;
 }
-
 .btn-close {
     pointer-events: none;
     position: absolute;
