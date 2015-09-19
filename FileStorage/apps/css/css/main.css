@@ -257,8 +257,8 @@
     left: -0.1em;
     -webkit-transform-origin: 5.2em 5.1em;
     transform-origin: 5.2em 5.1em;
-    -webkit-animation: loading-rotate 2s infinite ease 1s;
-    animation: loading-rotate 2s infinite ease 1s;
+    -webkit-animation: loading-rotate 2s infinite ease 1.5s;
+    animation: loading-rotate 2s infinite ease 1.5s;
 }
 .loading-c .loader {
     font-size: 11px;
