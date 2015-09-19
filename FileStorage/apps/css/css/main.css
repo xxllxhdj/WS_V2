@@ -11,19 +11,23 @@
     border-left: 100px solid darkblue;
 }
 
-.border-wrapper {
+.swipe-wrapper {
     position: relative;
     width: 200px;
     height: 200px;
-    background: #35CCF9;
     overflow: hidden;
     margin: 5px auto;
 }
-.border-wipes {
+.real-layer {
+    position: absolute;
+    opacity: 0;
+}
+.imge-layer {
     width: 200px;
     height: 200px;
+    background: #35CCF9;
 }
-.border-wipes:before {
+.imge-layer:before {
     position: absolute;
     content: '';
     right: 50%;
@@ -39,9 +43,12 @@
     border-right-width: 80px;
     border-bottom-width: 80px;
 }
-.border-wipes.swiped:before {
+.swipe-wrapper.swiped .imge-layer:before {
     border-right-width: 400px;
     border-bottom-width: 400px;
+}
+.swipe-wrapper.swiped .real-layer {
+    opacity: 1;
 }
 
 .paper-flip {

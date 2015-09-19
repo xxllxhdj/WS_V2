@@ -1,8 +1,11 @@
 <ion-view title="border">
     <ion-content class="has-tabs">
         <div class="border-base"></div>
-        <div class="border-wrapper" ng-click="swipe($event)">
-            <div class="border-wipes" ng-class="{swiped:data.swiped}"></div>
+        <div class="swipe-wrapper" ng-class="{swiped:data.swiped}" ng-click="swipe($event)">
+            <!--<div class="real-layer">-->
+                <!--<button class="btn btn-info">按钮</button>-->
+            <!--</div>-->
+            <div class="imge-layer"></div>
         </div>
         <div class="paper-flip" ng-click="onClick($event)" ng-class="data.exClass">
             <div class="share-layer">
