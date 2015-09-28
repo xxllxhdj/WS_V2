@@ -377,3 +377,49 @@
 }
 
 /******************************************************loading.html****************************************************/
+
+/******************************************************weather.html****************************************************/
+
+.weather-range {
+    position: relative;
+    display: inline-block;
+    height: 280px;
+    width: 100%;
+}
+.range-container {
+    height: 100%;
+    width: 100%;
+}
+.range-container .rag {
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 18px;
+    background: #a2a2a2;
+    -webkit-transform-origin: 0 -107px;
+    transform-origin: 0 -107px;
+}
+.range-container .rag:first-child,
+.range-container .rag:last-child {
+    width: 1px;
+    height: 23px;
+    bottom: 10px;
+}
+.weather-range .temp {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    font-size: 80px;
+    transform: translate(-50%, -50%);
+}
+.weather-range .weather {
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    font-size: 50px;
+    transform: translateX(-50%);
+}
+
+/******************************************************weather.html****************************************************/

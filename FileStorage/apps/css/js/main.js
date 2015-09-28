@@ -33,5 +33,14 @@ define([
                     templateUrl: appHelp.convertURL('css/tpls/loading.html')
                 }
             }
+        })
+        .state('app.weather', {
+            url: '/weather',
+            views: {
+                'menuContent': {
+                    templateUrl: appHelp.convertURL('css/tpls/weather.html'),
+                    controller: 'WeatherCtrl'
+                }
+            }
         });
 });

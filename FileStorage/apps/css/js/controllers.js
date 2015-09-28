@@ -20,4 +20,14 @@ define(['app'], function (app) {
             }
         };
     }]);
+    app.register.controller('WeatherCtrl', ['$scope', function ($scope) {
+        $scope.data = {
+            weather: {
+                temp: '17',
+                tHigh: '18',
+                tLow: '14',
+                weaid: '1'
+            }
+        };
+    }]);
 });
