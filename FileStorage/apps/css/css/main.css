@@ -392,20 +392,20 @@
 }
 .range-container .rag {
     position: absolute;
-    bottom: 15px;
+    bottom: 25px;
     left: 50%;
     transform: translateX(-50%);
     width: 2px;
     height: 18px;
     background: #a2a2a2;
-    -webkit-transform-origin: 0 -107px;
-    transform-origin: 0 -107px;
+    -webkit-transform-origin: 0 -100px;
+    transform-origin: 0 -100px;
 }
 .range-container .rag:first-child,
 .range-container .rag:last-child {
     width: 1px;
     height: 23px;
-    bottom: 10px;
+    bottom: 20px;
 }
 .weather-range .temp {
     position: absolute;
@@ -416,7 +416,7 @@
 }
 .weather-range .weather {
     position: absolute;
-    bottom: -10px;
+    bottom: 0;
     left: 50%;
     font-size: 50px;
     transform: translateX(-50%);
