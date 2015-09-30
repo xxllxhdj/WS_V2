@@ -390,12 +390,15 @@
     height: 100%;
     width: 100%;
 }
-.range-container .rag {
+.range-container .rag,
+.weather-range .active-rag {
     position: absolute;
-    bottom: 15px;
     left: 50%;
     transform: translateX(-50%);
     -webkit-transform: translateX(-50%);
+}
+.range-container .rag {
+    bottom: 15px;
     width: 2px;
     height: 20px;
     background: #a2a2a2;
@@ -423,6 +426,24 @@
     font-size: 50px;
     transform: translateX(-50%);
     -webkit-transform: translateX(-50%);
+}
+.weather-range .range-temp {
+    position: absolute;
+    left: 50%;
+    font-size: 14px;
+}
+.weather-range .low {
+    top: 4px;
+    margin-left: 40px;
+}
+.weather-range .active-rag {
+    bottom: 40px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    -webkit-transform-origin: 0 -80px;
+    transform-origin: 0 -80px;
+    background: #a2a2a2;
 }
 
 /******************************************************weather.html****************************************************/
