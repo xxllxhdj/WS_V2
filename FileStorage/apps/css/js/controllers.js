@@ -23,9 +23,9 @@ define(['app'], function (app) {
     app.register.controller('WeatherCtrl', ['$scope', function ($scope) {
         $scope.data = {
             weather: {
-                temp: 17,
-                tHigh: 25,
-                tLow: 14,
+                temp: 12,
+                tHigh: 15,
+                tLow: 7,
                 weaid: 1
             }
         };

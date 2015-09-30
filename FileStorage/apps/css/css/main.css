@@ -391,7 +391,7 @@
     width: 100%;
 }
 .range-container .rag,
-.weather-range .active-rag {
+.range-container .active-rag {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
@@ -433,13 +433,13 @@
     font-size: 14px;
 }
 .weather-range .low {
-    top: 4px;
-    margin-left: 40px;
+    top: 2px;
+    margin-left: 30px;
 }
-.weather-range .active-rag {
-    bottom: 40px;
-    width: 8px;
-    height: 8px;
+.range-container .active-rag {
+    bottom: 48px;
+    width: 10px;
+    height: 10px;
     border-radius: 50%;
     -webkit-transform-origin: 0 -80px;
     transform-origin: 0 -80px;

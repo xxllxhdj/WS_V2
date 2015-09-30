@@ -15,13 +15,13 @@ define(['app'], function (app) {
                 '<i class="icon ion-ios-rainy-outline weather"></i>' +
                 '<i class="range-temp low">{{weather.tLow + "&deg;C"}}</i>' +
                 '<i class="range-temp high">{{weather.tHigh + "&deg;C"}}</i>' +
-                '<i class="active-rag"></i>' +
             '</div>',
             compile: function(element, attr) {
                 var rangeContainer = angular.element('<div class="range-container"></div>'),
                     rag;
+                rangeContainer.append('<i class="active-rag"></i>');
                 for (var i = 8; i <= 92; i++) {
-                    rag = angular.element('<div class="rag"></div>');
+                    rag = angular.element('<i class="rag"></i>');
                     rag[0].style['-webkit-transform'] = 'rotate(' + 3.6 * i + 'deg)';
                     rag[0].style['transform'] = 'rotate(' + 3.6 * i + 'deg)';
                     rangeContainer.append(rag);
@@ -39,14 +39,14 @@ define(['app'], function (app) {
                         if (tHigh === tLow) {
                             deltaT = 5;
                         } else {
-                            deltaT = parseInt(30 / (tHigh - tLow));
+                            deltaT = parseInt(30 / (tHigh - tLow) + 0.5);
                             if (deltaT < 1) {
                                 deltaT = 1;
                             } else if (deltaT > 5) {
                                 deltaT = 5;
                             }
                         }
-                        var step = deltaT * (tHigh - tLow),
+                        var step = deltaT * (tHigh - tLow) + 1,
                             gradientColor = createGradientColor([255, 165, 0], [255, 0, 0], step),
                             rangeContainer = $element[0].querySelector('.range-container').children;
                         for (var i = 0; i <= step; i++) {
@@ -59,10 +59,14 @@ define(['app'], function (app) {
                         highElement.style['top'] = posY + 'px';
                         highElement.style['margin-left'] = posX + 'px';
 
-                        var activeRange = $element[0].children[4];
-                        activeRange.style['background'] = gradientColor[0];
-                        activeRange.style['-webkit-transform'] = 'rotate(' + 3.6 * 30 + 'deg)';
-                        activeRange.style['transform'] = 'rotate(' + 3.6 * 30 + 'deg)';
+                        var activeRange = $element[0].querySelector('.range-container').children[0],
+                            activeStep = ($scope.weather.temp - tLow) * deltaT;
+                        if (activeStep > gradientColor.length - 1) {
+                            activeStep = gradientColor.length - 1;
+                        }
+                        activeRange.style['background'] = gradientColor[activeStep];
+                        activeRange.style['-webkit-transform'] = 'rotate(' + 3.6 * (activeStep + 48 + 8) + 'deg)';
+                        activeRange.style['transform'] = 'rotate(' + 3.6 * (activeStep + 48 + 8) + 'deg)';
                     }
 
                     function createGradientColor(startColor, endColor, step) {
