@@ -18,9 +18,15 @@ define(['app'], function (app) {
             '</div>',
             compile: function(element, attr) {
                 var rangeContainer = angular.element('<div class="range-container"></div>'),
+                    i = 8,
                     rag;
+                rag = angular.element('<i class="rag"></i>');
+                rag[0].style['-webkit-transform'] = 'rotate(' + 3.6 * i + 'deg)';
+                rag[0].style['transform'] = 'rotate(' + 3.6 * i + 'deg)';
+                rangeContainer.append(rag);
                 rangeContainer.append('<i class="active-rag"></i>');
-                for (var i = 8; i <= 92; i++) {
+                i++;
+                for (; i <= 92; i++) {
                     rag = angular.element('<i class="rag"></i>');
                     rag[0].style['-webkit-transform'] = 'rotate(' + 3.6 * i + 'deg)';
                     rag[0].style['transform'] = 'rotate(' + 3.6 * i + 'deg)';
@@ -59,7 +65,7 @@ define(['app'], function (app) {
                         highElement.style['top'] = posY + 'px';
                         highElement.style['margin-left'] = posX + 'px';
 
-                        var activeRange = $element[0].querySelector('.range-container').children[0],
+                        var activeRange = $element[0].querySelector('.range-container').children[1],
                             activeStep = ($scope.weather.temp - tLow) * deltaT;
                         if (activeStep > gradientColor.length - 1) {
                             activeStep = gradientColor.length - 1;

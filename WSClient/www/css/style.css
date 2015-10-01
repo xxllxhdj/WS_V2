@@ -59,6 +59,9 @@ a:focus {
     border-color: transparent;
     color: #fff;
 }
+.gradient-bar .button.button-icon {
+    color: #fff;
+}
 
 /**********************************************************Common******************************************************/
 
@@ -81,9 +84,9 @@ a:focus {
     background-color: transparent;
     border: none;
     margin: 0 auto;
+    color: #fff;
 }
 .user-name {
-    color: #444;
     height: 40px;
     line-height: 40px;
     overflow: hidden;
