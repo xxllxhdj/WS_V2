@@ -21,6 +21,45 @@ a:focus {
     background-color: transparent;
 }
 
+.platform-android.platform-cordova:not(.fullscreen) .bar-header:not(.bar-subheader) {
+    height: 64px; }
+.platform-android.platform-cordova:not(.fullscreen) .bar-header:not(.bar-subheader).item-input-inset .item-input-wrapper {
+    margin-top: 19px !important; }
+.platform-android.platform-cordova:not(.fullscreen) .bar-header:not(.bar-subheader) > * {
+    margin-top: 20px; }
+.platform-android.platform-cordova:not(.fullscreen) .tabs-top > .tabs, .platform-android.platform-cordova:not(.fullscreen) .tabs.tabs-top {
+    top: 64px; }
+.platform-android.platform-cordova:not(.fullscreen) .has-header, .platform-android.platform-cordova:not(.fullscreen) .bar-subheader {
+    top: 64px; }
+.platform-android.platform-cordova:not(.fullscreen) .has-subheader {
+    top: 108px; }
+.platform-android.platform-cordova:not(.fullscreen) .has-header.has-tabs-top {
+    top: 113px; }
+.platform-android.platform-cordova:not(.fullscreen) .has-header.has-subheader.has-tabs-top {
+    top: 157px; }
+.platform-android.platform-cordova .popover .bar-header:not(.bar-subheader) {
+    height: 44px; }
+.platform-android.platform-cordova .popover .bar-header:not(.bar-subheader).item-input-inset .item-input-wrapper {
+    margin-top: -1px; }
+.platform-android.platform-cordova .popover .bar-header:not(.bar-subheader) > * {
+    margin-top: 0; }
+.platform-android.platform-cordova .popover .has-header, .platform-android.platform-cordova .popover .bar-subheader {
+    top: 44px; }
+.platform-android.platform-cordova .popover .has-subheader {
+    top: 88px; }
+.platform-android.platform-cordova.status-bar-hide {
+    margin-bottom: 20px; }
+
+.gradient-bar {
+    background: -moz-linear-gradient(left, #f1743a 0%, #d6485e 100%);
+    background: -webkit-linear-gradient(left, #f1743a 0%, #d6485e 100%);
+    background: -o-linear-gradient(left, #f1743a 0%, #d6485e 100%);
+    background: -ms-linear-gradient(left, #f1743a 0%, #d6485e 100%);
+    background: linear-gradient(to right, #f1743a 0%, #d6485e 100%);
+    border-color: transparent;
+    color: #fff;
+}
+
 /**********************************************************Common******************************************************/
 
 /*********************************************************app.html*****************************************************/
@@ -30,6 +69,12 @@ a:focus {
 }
 .side-menu-left .has-header {
     top: 80px;
+}
+.platform-android.platform-cordova:not(.fullscreen) .side-menu-left .bar {
+    height: 100px;
+}
+.platform-android.platform-cordova:not(.fullscreen) .side-menu-left .has-header {
+    top: 100px;
 }
 
 .user-item {

@@ -18,82 +18,89 @@ define([
         'WorkStation.utility'
     ])
 
-        .run(['$rootScope', '$ionicHistory', '$location', '$ionicPlatform', '$state', '$timeout', '$cordovaToast', '$cordovaInAppBrowser', 'APPCONSTANTS', function ($rootScope, $ionicHistory, $location, $ionicPlatform, $state, $timeout, $cordovaToast, $cordovaInAppBrowser, APPCONSTANTS) {
-            $ionicPlatform.ready(function () {
-                // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-                // for form inputs)
-                if (window.cordova && window.cordova.plugins.Keyboard) {
-                    cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-                }
-                if (window.StatusBar) {
-                    StatusBar.styleDefault();
-                }
-                if (navigator.splashscreen) {
-                    $timeout(function () {
-                        navigator.splashscreen.hide();
-                    }, APPCONSTANTS.SPLASH_SCREEN_EXTRA_DELAY);
-                }
-                if (window.cordova && window.cordova.plugins.notification.badge) {
-                    cordova.plugins.notification.badge.configure({
-                        title: '%d条新消息'
-                    });
-                    cordova.plugins.notification.badge.set(10);
-                }
-            });
-
-            $ionicPlatform.registerBackButtonAction(
-                onHardwareBackButton,
-                APPCONSTANTS.PLATFORM_BACK_BUTTON_PRIORITY_VIEW
-            );
-
-            $rootScope.confirmExit = false;
-            //$rootScope.$on("$cordovaInAppBrowser:exit", function (event, result) {
-            //    alert(result.type + ', ' + result.additional);
-            //});
-            $rootScope.$on("$cordovaInAppBrowser:loadstart", function (event, result) {
-                var url = result.url;
-
-                if (url.indexOf('goHome') != -1) {
-                    $cordovaInAppBrowser.close();
-                    $state.go('app.demos');
-                } else if (url.indexOf('goNgCordova') != -1) {
-                    $cordovaInAppBrowser.close();
-                    $state.go('app.ngCordova');
-                } else if (url.indexOf('NULL') != -1) {
-                    $cordovaInAppBrowser.close();
-                }
-            });
-
-            function onHardwareBackButton(e) {
-                //if ($location.path().indexOf('/app/') != -1) {
-                if ($location.path().indexOf('demos') != -1 ||
-                    $location.path().indexOf('about') != -1 ||
-                    $location.path().indexOf('option') != -1
-                ) {
-                    if ($rootScope.confirmExit) {
-                        ionic.Platform.exitApp();
-                    } else {
-                        $rootScope.confirmExit = true;
-                        $cordovaToast.showShortBottom(APPCONSTANTS.EXIT_APP_CONFIRM_STR);
-                        $timeout(function () {
-                            $rootScope.confirmExit = false;
-                        }, APPCONSTANTS.EXIT_APP_CONFIRM_TIME);
+        .run(['$rootScope', '$ionicHistory', '$location', '$ionicPlatform', '$state', '$timeout', '$cordovaToast', '$cordovaInAppBrowser', 'configService', 'APPCONSTANTS',
+            function ($rootScope, $ionicHistory, $location, $ionicPlatform, $state, $timeout, $cordovaToast, $cordovaInAppBrowser, configService, APPCONSTANTS) {
+                $ionicPlatform.ready(function () {
+                    // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
+                    // for form inputs)
+                    if (window.cordova && window.cordova.plugins.Keyboard) {
+                        cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
                     }
-                } else if ($ionicHistory.backView()) {
-                    $ionicHistory.goBack();
-                } else {
-                    $ionicHistory.nextViewOptions({
-                        historyRoot: true,
-                        disableAnimate: false,
-                        expire: 300
-                    });
-                    $state.go('app.demos');
-                }
+                    if (window.StatusBar) {
+                        StatusBar.styleDefault();
+                    }
+                    if (navigator.splashscreen) {
+                        configService.loadingPromise.then(function () {
+                            $timeout(function () {
+                                navigator.splashscreen.hide();
+                                if (window.StatusBar) {
+                                    StatusBar.show();
+                                }
+                            }, APPCONSTANTS.SPLASH_SCREEN_EXTRA_DELAY);
+                        });
+                    }
+                    //if (window.cordova && window.cordova.plugins.notification.badge) {
+                    //    cordova.plugins.notification.badge.configure({
+                    //        title: '%d条新消息'
+                    //    });
+                    //    cordova.plugins.notification.badge.set(10);
+                    //}
+                });
 
-                e.preventDefault();
-                return false;
+                $ionicPlatform.registerBackButtonAction(
+                    onHardwareBackButton,
+                    APPCONSTANTS.PLATFORM_BACK_BUTTON_PRIORITY_VIEW
+                );
+
+                $rootScope.confirmExit = false;
+                //$rootScope.$on("$cordovaInAppBrowser:exit", function (event, result) {
+                //    alert(result.type + ', ' + result.additional);
+                //});
+                $rootScope.$on("$cordovaInAppBrowser:loadstart", function (event, result) {
+                    var url = result.url;
+
+                    if (url.indexOf('goHome') != -1) {
+                        $cordovaInAppBrowser.close();
+                        $state.go('app.demos');
+                    } else if (url.indexOf('goNgCordova') != -1) {
+                        $cordovaInAppBrowser.close();
+                        $state.go('app.ngCordova');
+                    } else if (url.indexOf('NULL') != -1) {
+                        $cordovaInAppBrowser.close();
+                    }
+                });
+
+                function onHardwareBackButton(e) {
+                    //if ($location.path().indexOf('/app/') != -1) {
+                    if ($location.path().indexOf('demos') != -1 ||
+                        $location.path().indexOf('about') != -1 ||
+                        $location.path().indexOf('option') != -1
+                    ) {
+                        if ($rootScope.confirmExit) {
+                            ionic.Platform.exitApp();
+                        } else {
+                            $rootScope.confirmExit = true;
+                            $cordovaToast.showShortBottom(APPCONSTANTS.EXIT_APP_CONFIRM_STR);
+                            $timeout(function () {
+                                $rootScope.confirmExit = false;
+                            }, APPCONSTANTS.EXIT_APP_CONFIRM_TIME);
+                        }
+                    } else if ($ionicHistory.backView()) {
+                        $ionicHistory.goBack();
+                    } else {
+                        $ionicHistory.nextViewOptions({
+                            historyRoot: true,
+                            disableAnimate: false,
+                            expire: 300
+                        });
+                        $state.go('app.demos');
+                    }
+
+                    e.preventDefault();
+                    return false;
+                }
             }
-        }])
+        ])
 
         .config(['$stateProvider', '$urlRouterProvider', '$ionicConfigProvider', '$controllerProvider', '$compileProvider', '$filterProvider', '$provide',
             function ($stateProvider, $urlRouterProvider, $ionicConfigProvider, $controllerProvider, $compileProvider, $filterProvider, $provide) {

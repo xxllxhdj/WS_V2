@@ -4,6 +4,7 @@
   "description": "WorkStation: An Ionic project",
   "cordovaPlugins": [
     "org.apache.cordova.splashscreen",
+    "cordova-plugin-statusbar",
     "phonegap-plugin-barcodescanner",
     "cordova-plugin-whitelist",
     "nl.x-services.plugins.toast",
