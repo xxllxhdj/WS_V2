@@ -18,7 +18,7 @@ pluginlist.forEach(function(plug) {
     exec("cordova plugin add " + plug, puts);
 });
 
-var localPluginsDir = path.resolve(__dirname, '../../localplugins');
+var localPluginsDir = path.resolve(__dirname, '../../local/customPlugins');
 localpluginlist.forEach(function(plug) {
     exec("cordova plugin add " + localPluginsDir + '\\' + plug, puts);
 });
