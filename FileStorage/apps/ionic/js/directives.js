@@ -516,8 +516,9 @@ define(['app'], function (app) {
 
             var height = angular.isDefined($attrs.dataHeight) ? parseInt($attrs.dataHeight) : 54,
                 prevScrollTop = 0,
+                scrollTop = 0,
                 rowsCache = {},
-                viewportH, scrollTop, vScrollDir;
+                viewportH, vScrollDir;
 
             self.init = function (ctrl) {
                 scrollCtrl = ctrl;
@@ -537,7 +538,7 @@ define(['app'], function (app) {
                 // cleanup when done
                 $scope.$on('$destroy', destroy);
 
-                handleScroll();
+                render();
             };
 
             function getDataLength() {
@@ -637,7 +638,7 @@ define(['app'], function (app) {
                         continue;
                     }
                     data = getDataItem(i);
-                    item = angular.element('<h4 style="top:' + getRowTop(i) + 'px;height:54px">' + data.name + '</h4>');
+                    item = angular.element('<div class="data-item" style="top:' + getRowTop(i) + 'px;height:' + height + 'px">' + data.name + '</div>');
                     $element.append(item)
                     rowsCache[i] = item[0];
                 }
