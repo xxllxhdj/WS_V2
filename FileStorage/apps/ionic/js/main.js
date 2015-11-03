@@ -50,6 +50,15 @@ define([
                     controller: 'ComboCtrl'
                 }
             }
+        })
+        .state('app.hugedata', {
+            url: '/hugedata',
+            views: {
+                'menuContent': {
+                    templateUrl: appHelp.convertURL('ionic/tpls/hugeData.html'),
+                    controller: 'HugeDataCtrl'
+                }
+            }
         });
     console.log(pinyin.getCamelChars('测试'));
 });

@@ -452,4 +452,53 @@ define(['app'], function (app) {
                 '</label>'
         };
     });
+
+    app.register.directive('slickScroll', function () {
+        return {
+            restrict: 'E',
+            replace: true,
+            scope: {
+                hugeData: '=?'
+            },
+            template:
+            '<div class="slick-scroll">' +
+                '<ion-scroll has-bouncing="true" on-scroll="onScroll()">' +
+                    '<div class="data-canvas"></div>' +
+                '</ion-scroll>' +
+            '</div>',
+            controller: ['$scope', '$element', '$attrs', function($scope, $element, $attrs) {
+                var ionScroll = $element.find('ion-scroll'),
+                    canvas = $element[0].querySelector('.data-canvas');
+
+                var height = angular.isDefined($attrs.dataHeight) ? parseInt($attrs.dataHeight) : 54;
+
+                init();
+
+                $scope.onScroll = function () {
+                    handleScroll();
+                };
+
+                function init() {
+                    canvas.style.height = height * getDataLength() + 'px';
+                    handleScroll();
+                }
+                function handleScroll() {
+                }
+                function getDataLength() {
+                    return $scope.hugeData.length;
+                }
+            }]
+        };
+    });
+
+    app.register.directive('dataItem', function () {
+        return {
+            restrict: 'E',
+            replace: true,
+            transclude: true,
+            template:
+            '<div class="data-item" ng-transclude>' +
+            '</div>'
+        };
+    });
 });

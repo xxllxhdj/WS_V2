@@ -176,4 +176,14 @@ define(['app', 'ngCordova'], function (app) {
         };
     }]);
 
+    app.register.controller('HugeDataCtrl', ['$scope', function ($scope) {
+        var temp = [];
+        for (var i = 1; i <= 5000; i++) {
+            temp.push({
+                name: '测试' + i
+            });
+        }
+
+        $scope.hugeData = temp;
+    }]);
 });
