@@ -452,7 +452,7 @@ define(['app'], function (app) {
                 '</label>'
         };
     });
-
+    /*
     app.register.directive('slickScroll', function () {
         return {
             restrict: 'E',
@@ -490,6 +490,165 @@ define(['app'], function (app) {
             }]
         };
     });
+    */
+    app.register.directive('slickCanvas', function () {
+        return {
+            restrict: 'E',
+            replace: true,
+            require: ['?^$ionicScroll', 'slickCanvas'],
+            controller: 'slickCanvasCtrl',
+            scope: {
+                hugeData: '=?'
+            },
+            template: '<div class="data-canvas"></div>',
+            link: function($scope, $element, $attrs, ctrls) {
+                var scrollCtrl = ctrls[0],
+                    slickCanvasCtrl = ctrls[1];
+                slickCanvasCtrl.init(scrollCtrl);
+            }
+        };
+    });
+
+    app.register.controller('slickCanvasCtrl', ['$scope', '$element', '$attrs',
+        function ($scope, $element, $attrs) {
+            var self = this,
+                scrollCtrl, scrollParent, scrollChild;
+
+            var height = angular.isDefined($attrs.dataHeight) ? parseInt($attrs.dataHeight) : 54,
+                prevScrollTop = 0,
+                rowsCache = {},
+                viewportH, scrollTop, vScrollDir;
+
+            self.init = function (ctrl) {
+                scrollCtrl = ctrl;
+                scrollParent = $element.parent().parent()[0];
+                scrollChild = $element.parent()[0];
+
+                $element[0].style.height = height * getDataLength() + 'px';
+                viewportH = scrollParent.offsetHeight;
+
+                if (!scrollParent || !scrollParent.classList.contains('ionic-scroll') ||
+                    !scrollChild || !scrollChild.classList.contains('scroll')) {
+                    throw new Error('SlickCanvas must be immediate child of ion-content or ion-scroll');
+                }
+
+                ionic.on('scroll', handleScroll, scrollParent);
+
+                // cleanup when done
+                $scope.$on('$destroy', destroy);
+
+                handleScroll();
+            };
+
+            function getDataLength() {
+                return $scope.hugeData.length;
+            }
+            function getDataItem(i) {
+                return $scope.hugeData[i];
+            }
+            function getRowTop(row) {
+                return height * row;
+            }
+            function handleScroll() {
+                var scrollPos = scrollCtrl.getScrollPosition();
+                scrollTop = scrollPos.top;
+
+                if (scrollTop < 0) {
+                    return;
+                }
+
+                var vScrollDist = Math.abs(scrollTop - prevScrollTop);
+                if (!vScrollDist) {
+                    return;
+                }
+
+                vScrollDir = prevScrollTop < scrollTop ? 1 : -1;
+                prevScrollTop = scrollTop;
+
+                render();
+            }
+            function render() {
+                var visible = getVisibleRange(),
+                    rendered = getRenderedRange();
+
+                // remove rows no longer in the viewport
+                cleanupRows(rendered);
+
+                // render missing rows
+                renderRows(rendered);
+            }
+            function getVisibleRange(viewportTop) {
+                if (viewportTop == null) {
+                    viewportTop = scrollTop;
+                }
+                return {
+                    top: getRowFromPosition(viewportTop),
+                    bottom: getRowFromPosition(viewportTop + viewportH) + 1
+                };
+            }
+            function getRenderedRange(viewportTop) {
+                var range = getVisibleRange(viewportTop),
+                    buffer = Math.round(viewportH / height),
+                    minBuffer = 3;
+
+                if (vScrollDir == -1) {
+                    range.top -= buffer;
+                    range.bottom += minBuffer;
+                } else if (vScrollDir == 1) {
+                    range.top -= minBuffer;
+                    range.bottom += buffer;
+                } else {
+                    range.top -= minBuffer;
+                    range.bottom += minBuffer;
+                }
+
+                range.top = Math.max(0, range.top);
+                range.bottom = Math.min(getDataLength() - 1, range.bottom);
+
+                return range;
+            }
+            function getRowFromPosition(y) {
+                return Math.floor(y / height);
+            }
+            function cleanupRows(rangeToKeep) {
+                for (var i in rowsCache) {
+                    if (i < rangeToKeep.top || i > rangeToKeep.bottom) {
+                        removeRowFromCache(i);
+                    }
+                }
+            }
+            function removeRowFromCache(row) {
+                var cacheEntry = rowsCache[row];
+                if (!cacheEntry) {
+                    return;
+                }
+
+                $element[0].removeChild(cacheEntry);
+
+                delete rowsCache[row];
+            }
+            function renderRows(range) {
+                var parentNode = $element[0],
+                    dataLength = getDataLength(),
+                    item, data;
+
+                for (var i = range.top, ii = range.bottom; i <= ii; i++) {
+                    if (rowsCache[i]) {
+                        continue;
+                    }
+                    data = getDataItem(i);
+                    item = angular.element('<h4 style="top:' + getRowTop(i) + 'px;height:54px">' + data.name + '</h4>');
+                    $element.append(item)
+                    rowsCache[i] = item[0];
+                }
+            }
+            function destroy() {
+                ionic.off('scroll', handleScroll, scrollParent);
+                scrollParent = null;
+                scrollChild = null;
+            }
+        }
+    ]);
 
     app.register.directive('dataItem', function () {
         return {
