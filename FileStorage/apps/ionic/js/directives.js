@@ -509,16 +509,18 @@ define(['app'], function (app) {
         };
     });
 
-    app.register.controller('slickCanvasCtrl', ['$scope', '$element', '$attrs',
-        function ($scope, $element, $attrs) {
+    app.register.controller('slickCanvasCtrl', ['$scope', '$element', '$attrs', '$compile', '$rootScope',
+        function ($scope, $element, $attrs, $compile, $rootScope) {
             var self = this,
                 scrollCtrl, scrollParent, scrollChild;
 
-            var height = angular.isDefined($attrs.dataHeight) ? parseInt($attrs.dataHeight) : 54,
+            var height = angular.isDefined($attrs.itemHeight) ? parseInt($attrs.itemHeight) : 54,
+                itemDirective = angular.isDefined($attrs.itemDirective) ? $attrs.itemDirective : 'slick-item',
                 prevScrollTop = 0,
                 scrollTop = 0,
+                renderScrollTop = 0,
                 rowsCache = {},
-                viewportH, vScrollDir;
+                viewportH, vScrollDir, renderTimeout;
 
             self.init = function (ctrl) {
                 scrollCtrl = ctrl;
@@ -566,6 +568,10 @@ define(['app'], function (app) {
                 vScrollDir = prevScrollTop < scrollTop ? 1 : -1;
                 prevScrollTop = scrollTop;
 
+                if (Math.abs(renderScrollTop - scrollTop) < height) {
+                    return;
+                }
+
                 render();
             }
             function render() {
@@ -577,6 +583,9 @@ define(['app'], function (app) {
 
                 // render missing rows
                 renderRows(rendered);
+                if (!$rootScope.$$phase) {
+                    $scope.$apply();
+                }
             }
             function getVisibleRange(viewportTop) {
                 if (viewportTop == null) {
@@ -637,9 +646,10 @@ define(['app'], function (app) {
                     if (rowsCache[i]) {
                         continue;
                     }
-                    data = getDataItem(i);
-                    item = angular.element('<div class="data-item" style="top:' + getRowTop(i) + 'px;height:' + height + 'px">' + data.name + '</div>');
-                    $element.append(item)
+
+                    item = $compile('<' + itemDirective + ' style="top:' + getRowTop(i) + 'px;height:'
+                        + height + 'px" data="hugeData[' + i + ']"></' + itemDirective + '>')($scope);
+                    $element.append(item);
                     rowsCache[i] = item[0];
                 }
             }
@@ -651,14 +661,33 @@ define(['app'], function (app) {
         }
     ]);
 
-    app.register.directive('dataItem', function () {
+    app.register.directive('slickItem', function () {
         return {
             restrict: 'E',
             replace: true,
             transclude: true,
+            scope: {
+                data: '=?'
+            },
             template:
-            '<div class="data-item" ng-transclude>' +
-            '</div>'
+            '<div class="data-item">{{data.name}}</div>'
+        };
+    });
+
+    app.register.directive('contactItem', function () {
+        return {
+            restrict: 'E',
+            replace: true,
+            scope: {
+                data: '=?'
+            },
+            template:
+                '<div class="data-item contact-item">' +
+                    '<ion-checkbox class="item-checkbox-right">' +
+                        '<img ng-src="img/icon.png">' +
+                        '{{data.name}}' +
+                    '</ion-checkbox>' +
+                '</div>'
         };
     });
 });

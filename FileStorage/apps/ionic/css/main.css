@@ -17,11 +17,26 @@
     height: 100%;
 }
 
-.data-canvas .data-item {
+.data-item {
     position: absolute;
     width: 100%;
     font-size: 18px;
     padding: 16px;
+}
+
+.contact-item {
+    padding: 0;
+}
+.contact-item .item-checkbox {
+    border: none;
+}
+.contact-item .item-checkbox img {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+}
+.contact-item span {
+    margin-left: 10px;
 }
 
 /****************************************************slick scroll******************************************************/
