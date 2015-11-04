@@ -604,12 +604,9 @@ define(['app'], function (app) {
                 if (vScrollDir == -1) {
                     range.top -= buffer;
                     range.bottom += minBuffer;
-                } else if (vScrollDir == 1) {
-                    range.top -= minBuffer;
-                    range.bottom += buffer;
                 } else {
                     range.top -= minBuffer;
-                    range.bottom += minBuffer;
+                    range.bottom += buffer;
                 }
 
                 range.top = Math.max(0, range.top);
@@ -652,6 +649,7 @@ define(['app'], function (app) {
                     $element.append(item);
                     rowsCache[i] = item[0];
                 }
+                renderScrollTop = range.top;
             }
             function destroy() {
                 ionic.off('scroll', handleScroll, scrollParent);
